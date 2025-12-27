@@ -36,7 +36,6 @@ export default function Home() {
   const sections = [
     { id: 'global-economy', title: 'Global Economy', icon: '🌍' },
     { id: 'economy', title: 'Australia Economy', icon: '🇦🇺' },
-    { id: 'quote', title: 'Quote of the Day', icon: '💭' },
     { id: 'trading', title: 'Trading Feed', icon: '📈' },
     { id: 'property', title: 'Property Feed', icon: '🏠' },
     { id: 'stocks', title: 'Stocks Feed', icon: '💹' },
@@ -48,6 +47,7 @@ export default function Home() {
     { id: 'knowledge', title: 'Knowledge Feed', icon: '📚' },
     { id: 'venture-capital', title: 'Venture Capital', icon: '💼' },
     { id: 'graphic', title: 'Graphic of the Day', icon: '📊' },
+    { id: 'quote', title: 'Quote of the Day', icon: '💭' },
     ...(portfolioEnabled ? [{ id: 'portfolio', title: 'My Portfolio News', icon: '💼' }] : []),
     ...(isFriday ? [{ id: 'entertainment', title: 'Entertainment Feed', icon: '🎬' }] : []),
   ]
@@ -76,10 +76,6 @@ export default function Home() {
 
           <section id="economy">
             <EconomyFeed />
-          </section>
-
-          <section id="quote">
-            <QuoteOfTheDay />
           </section>
 
           <section id="trading">
@@ -126,11 +122,26 @@ export default function Home() {
             <GraphicOfTheDay />
           </section>
 
+          <section id="quote">
+            <QuoteOfTheDay />
+          </section>
+
           {isFriday && (
             <section id="entertainment">
               <EntertainmentFeed />
             </section>
           )}
+
+          {/* Thanks for Reading Section */}
+          <section className="section-card text-center bg-gradient-to-br from-gecko-500 to-gecko-600 text-white">
+            <div className="flex flex-col items-center gap-4 py-8">
+              <div className="text-6xl animate-bounce">🦎</div>
+              <h2 className="text-3xl font-bold">Thanks for reading Gekkos!</h2>
+              <p className="text-lg text-white/90">
+                See you tomorrow with more finance insights and market updates.
+              </p>
+            </div>
+          </section>
 
           <section id="feedback" className="section-card">
             <h2 className="text-3xl font-bold text-slate-900 mb-4 flex items-center gap-2">
