@@ -1,6 +1,7 @@
-// News data service using RSS feeds for unlimited free access
-// Alternative: NewsAPI.org (free tier: 100 requests/day, requires API key)
+// News data service using RSS feeds with proper HTML entity decoding
+// Uses rss-parser library for clean, formatted content
 
+import Parser from 'rss-parser'
 import {
   fetchWithTimeout,
   isRateLimitError,
@@ -15,6 +16,14 @@ interface NewsArticle {
   publishedAt: string
   category: string
 }
+
+// Initialize RSS parser with custom fields for media content
+const rssParser = new Parser({
+  customFields: {
+    item: ['media:thumbnail', 'media:content', 'content:encoded'],
+  },
+  timeout: 10000,
+})
 
 // Free RSS feed sources for financial news
 const RSS_FEEDS = {
@@ -37,66 +46,83 @@ const RSS_FEEDS = {
 }
 
 /**
- * Parse RSS feed with timeout and error handling
+ * Decode HTML entities and strip HTML tags
  */
-async function parseRSSFeed(url: string): Promise<NewsArticle[]> {
+function cleanHtmlContent(text: string): string {
+  if (!text) return ''
+
+  // Strip HTML tags
+  let cleaned = text.replace(/<[^>]*>/g, '')
+
+  // Decode common HTML entities (backup for cases rss-parser misses)
+  cleaned = cleaned
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&#x27;/g, "'")
+    .replace(/&#x2019;/g, ''')
+    .replace(/&#x2014;/g, '—')
+    .replace(/&#x2013;/g, '–')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&ndash;/g, '–')
+    .replace(/&mdash;/g, '—')
+    .replace(/&rsquo;/g, ''')
+    .replace(/&lsquo;/g, ''')
+    .replace(/&rdquo;/g, '"')
+    .replace(/&ldquo;/g, '"')
+
+  return cleaned.trim()
+}
+
+/**
+ * Extract clean content from RSS item
+ * Priority: contentSnippet > content:encoded > description > summary
+ */
+function extractContent(item: any): string {
+  // contentSnippet is already decoded by rss-parser
+  if (item.contentSnippet) {
+    return item.contentSnippet.substring(0, 500)
+  }
+
+  // Try content:encoded field (some feeds use this)
+  if (item['content:encoded']) {
+    return cleanHtmlContent(item['content:encoded']).substring(0, 500)
+  }
+
+  // Try description
+  if (item.description) {
+    return cleanHtmlContent(item.description).substring(0, 500)
+  }
+
+  // Try summary as fallback
+  if (item.summary) {
+    return cleanHtmlContent(item.summary).substring(0, 500)
+  }
+
+  return ''
+}
+
+/**
+ * Parse RSS feed with rss-parser (automatic entity decoding)
+ */
+async function parseRSSFeed(url: string, category: string = 'general'): Promise<NewsArticle[]> {
   try {
-    const response = await fetchWithTimeout(
-      url,
-      {
-        next: { revalidate: 900 }, // Cache for 15 minutes
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (compatible; NewsBot/1.0)',
-        },
-      },
-      10000 // 10s timeout for RSS feeds (can be slow)
-    )
+    // Use rss-parser's built-in fetch with timeout
+    const feed = await rssParser.parseURL(url)
 
-    if (isRateLimitError(response)) {
-      console.warn(`RSS feed rate limit for ${url} (429). Backing off...`)
-      return []
-    }
-
-    if (isRetryableError(response)) {
-      console.warn(`RSS feed error for ${url}: ${response.status} ${response.statusText}`)
-      return []
-    }
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch RSS feed: ${response.statusText}`)
-    }
-
-    const xml = await response.text()
-
-    // Simple XML parsing for RSS items
-    const itemRegex = /<item>([\s\S]*?)<\/item>/g
-    const titleRegex = /<title><!\[CDATA\[(.*?)\]\]><\/title>|<title>(.*?)<\/title>/
-    const linkRegex = /<link>(.*?)<\/link>/
-    const descRegex = /<description><!\[CDATA\[(.*?)\]\]><\/description>|<description>(.*?)<\/description>/
-    const pubDateRegex = /<pubDate>(.*?)<\/pubDate>/
-
-    const articles: NewsArticle[] = []
-    let match
-
-    while ((match = itemRegex.exec(xml)) !== null && articles.length < 5) {
-      const item = match[1]
-
-      const titleMatch = item.match(titleRegex)
-      const linkMatch = item.match(linkRegex)
-      const descMatch = item.match(descRegex)
-      const pubDateMatch = item.match(pubDateRegex)
-
-      if (titleMatch && linkMatch) {
-        articles.push({
-          title: titleMatch[1] || titleMatch[2] || '',
-          description: descMatch ? (descMatch[1] || descMatch[2] || '') : '',
-          url: linkMatch[1] || '',
-          source: new URL(url).hostname.replace('www.', ''),
-          publishedAt: pubDateMatch ? pubDateMatch[1] : new Date().toISOString(),
-          category: 'general',
-        })
+    // Map feed items to NewsArticle format
+    const articles: NewsArticle[] = feed.items.slice(0, 5).map((item, index) => {
+      return {
+        title: cleanHtmlContent(item.title || 'Untitled'),
+        description: extractContent(item),
+        url: item.link || item.guid || '#',
+        source: new URL(url).hostname.replace('www.', ''),
+        publishedAt: item.pubDate || item.isoDate || new Date().toISOString(),
+        category,
       }
-    }
+    })
 
     return articles
   } catch (error) {
@@ -111,9 +137,8 @@ async function parseRSSFeed(url: string): Promise<NewsArticle[]> {
 
 export async function fetchFinancialNews(): Promise<NewsArticle[]> {
   try {
-    // Fetch from multiple RSS feeds
-    const articles = await parseRSSFeed('https://www.marketwatch.com/rss/topstories')
-    return articles.slice(0, 5)
+    const articles = await parseRSSFeed('https://www.marketwatch.com/rss/topstories', 'stocks')
+    return articles
   } catch (error) {
     console.error('Error fetching financial news:', error)
     return []
@@ -122,8 +147,8 @@ export async function fetchFinancialNews(): Promise<NewsArticle[]> {
 
 export async function fetchCryptoNews(): Promise<NewsArticle[]> {
   try {
-    const articles = await parseRSSFeed('https://cointelegraph.com/rss')
-    return articles.slice(0, 5)
+    const articles = await parseRSSFeed('https://cointelegraph.com/rss', 'crypto')
+    return articles
   } catch (error) {
     console.error('Error fetching crypto news:', error)
     return []
@@ -132,8 +157,8 @@ export async function fetchCryptoNews(): Promise<NewsArticle[]> {
 
 export async function fetchTechNews(): Promise<NewsArticle[]> {
   try {
-    const articles = await parseRSSFeed('https://techcrunch.com/feed/')
-    return articles.slice(0, 5)
+    const articles = await parseRSSFeed('https://techcrunch.com/feed/', 'tech')
+    return articles
   } catch (error) {
     console.error('Error fetching tech news:', error)
     return []
@@ -143,10 +168,20 @@ export async function fetchTechNews(): Promise<NewsArticle[]> {
 export async function fetchPropertyNews(): Promise<NewsArticle[]> {
   try {
     // Australian property news from AFR
-    const articles = await parseRSSFeed('https://www.afr.com/property/rss')
-    return articles.slice(0, 5)
+    const articles = await parseRSSFeed('https://www.afr.com/property/rss', 'property')
+    return articles
   } catch (error) {
     console.error('Error fetching property news:', error)
+    return []
+  }
+}
+
+export async function fetchEconomyNews(): Promise<NewsArticle[]> {
+  try {
+    const articles = await parseRSSFeed('https://www.marketwatch.com/rss/topstories', 'economy')
+    return articles
+  } catch (error) {
+    console.error('Error fetching economy news:', error)
     return []
   }
 }
