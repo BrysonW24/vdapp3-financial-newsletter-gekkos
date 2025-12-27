@@ -18,7 +18,6 @@ import IPOFeed from '@/components/newsletter/sections/IPOFeed'
 import EarningsFeed from '@/components/newsletter/sections/EarningsFeed'
 import GraphicOfTheDay from '@/components/newsletter/sections/GraphicOfTheDay'
 import QuoteOfTheDay from '@/components/newsletter/sections/QuoteOfTheDay'
-import GlobalPolitics from '@/components/newsletter/sections/GlobalPolitics'
 import CommoditiesDashboard from '@/components/newsletter/sections/CommoditiesDashboard'
 import VentureCapitalDashboard from '@/components/newsletter/sections/VentureCapitalDashboard'
 import DruckenmillerCharts from '@/components/newsletter/sections/DruckenmillerCharts'
@@ -37,21 +36,20 @@ export default function Home() {
   const sections = [
     { id: 'global-economy', title: 'Global Economy', icon: '🌍' },
     { id: 'economy', title: 'Australia Economy', icon: '🇦🇺' },
+    { id: 'quote', title: 'Quote of the Day', icon: '💭' },
     { id: 'trading', title: 'Trading Feed', icon: '📈' },
     { id: 'property', title: 'Property Feed', icon: '🏠' },
     { id: 'stocks', title: 'Stocks Feed', icon: '💹' },
+    { id: 'commodities', title: 'Commodities & Materials', icon: '📊' },
     { id: 'crypto', title: 'Crypto Feed', icon: '₿' },
     { id: 'ipo', title: 'IPO Feed', icon: '🚀' },
     { id: 'earnings', title: 'Earnings Feed', icon: '💰' },
-    { id: 'global-politics', title: 'Global Politics', icon: '🌍' },
     { id: 'technology', title: 'Technology Feed', icon: '💻' },
-    { id: 'knowledge', title: 'Knowledge Feed', icon: '📚' },
-    { id: 'commodities', title: 'Commodities & Materials', icon: '📊' },
     { id: 'venture-capital', title: 'Venture Capital', icon: '💼' },
     ...(isFriday ? [{ id: 'entertainment', title: 'Entertainment Feed', icon: '🎬' }] : []),
     ...(portfolioEnabled ? [{ id: 'portfolio', title: 'My Portfolio News', icon: '💼' }] : []),
     { id: 'graphic', title: 'Graphic of the Day', icon: '📊' },
-    { id: 'quote', title: 'Quote of the Day', icon: '💭' },
+    { id: 'knowledge', title: 'Knowledge Feed', icon: '📚' },
   ]
 
   return (
@@ -80,6 +78,10 @@ export default function Home() {
             <EconomyFeed />
           </section>
 
+          <section id="quote">
+            <QuoteOfTheDay />
+          </section>
+
           <section id="trading">
             <TradingFeed />
           </section>
@@ -90,6 +92,10 @@ export default function Home() {
 
           <section id="stocks">
             <StocksFeed />
+          </section>
+
+          <section id="commodities">
+            <CommoditiesDashboard />
           </section>
 
           <section id="crypto">
@@ -104,20 +110,8 @@ export default function Home() {
             <EarningsFeed />
           </section>
 
-          <section id="global-politics">
-            <GlobalPolitics />
-          </section>
-
           <section id="technology">
             <TechnologyFeed />
-          </section>
-
-          <section id="knowledge">
-            <KnowledgeFeed />
-          </section>
-
-          <section id="commodities">
-            <CommoditiesDashboard />
           </section>
 
           <section id="venture-capital">
@@ -134,8 +128,8 @@ export default function Home() {
             <GraphicOfTheDay />
           </section>
 
-          <section id="quote">
-            <QuoteOfTheDay />
+          <section id="knowledge">
+            <KnowledgeFeed />
           </section>
 
           <section id="feedback" className="section-card">

@@ -39,24 +39,31 @@ export default function Header() {
           </div>
 
           {/* Navigation */}
-          <nav className="flex items-center gap-4">
+          <nav className="flex items-center gap-3">
             <Link
               href="/"
-              className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors duration-200 backdrop-blur-sm flex items-center gap-2 font-medium"
+              className="px-3 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors duration-200 backdrop-blur-sm flex items-center gap-2 font-medium text-sm"
             >
               <span>📊</span>
               Dashboard
             </Link>
             <Link
               href="/news"
-              className="px-4 py-2 bg-gecko-500 hover:bg-gecko-600 rounded-lg transition-colors duration-200 backdrop-blur-sm font-medium shadow-md flex items-center gap-2"
+              className="px-3 py-2 bg-gecko-500 hover:bg-gecko-600 rounded-lg transition-colors duration-200 backdrop-blur-sm font-medium shadow-md flex items-center gap-2 text-sm"
             >
               <span>📰</span>
               News Intelligence
             </Link>
             <Link
+              href="/politics"
+              className="px-3 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors duration-200 backdrop-blur-sm flex items-center gap-2 text-sm"
+            >
+              <span>🌍</span>
+              Global Politics
+            </Link>
+            <Link
               href="/news/search"
-              className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors duration-200 backdrop-blur-sm flex items-center gap-2"
+              className="px-3 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors duration-200 backdrop-blur-sm flex items-center gap-2 text-sm"
             >
               <span>🔍</span>
               Search
