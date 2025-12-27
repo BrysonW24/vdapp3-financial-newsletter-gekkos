@@ -82,8 +82,13 @@ export default function CryptoFeed() {
   return (
     <div className="section-card animate-slide-up">
       <h2 className="section-title">
-        <span className="text-3xl">₿</span>
-        Crypto Feed
+        <div className="flex items-center gap-3 flex-1">
+          <span className="text-3xl">₿</span>
+          <div className="flex flex-col">
+            <span>Crypto Feed</span>
+            <span className="text-xs font-normal text-purple-700">🪙 Live cryptocurrency prices & market data</span>
+          </div>
+        </div>
         <span className="ml-auto text-xs font-normal text-purple-600 bg-purple-100 px-3 py-1 rounded-full">
           LIVE DATA ✨
         </span>
@@ -141,7 +146,12 @@ export default function CryptoFeed() {
 
       {/* Related Articles */}
       <div>
-        <h3 className="text-lg font-semibold text-slate-700 mb-4">Latest Crypto News</h3>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-slate-700">Latest Crypto News</h3>
+          <a href="/news?category=crypto" className="text-sm font-medium text-purple-600 hover:text-purple-700 flex items-center gap-1">
+            View All Articles →
+          </a>
+        </div>
         <ul className="space-y-3">
           {articles.map((article, index) => (
             <li key={index} className="flex items-start gap-3 bg-slate-50 rounded-lg p-4 hover:bg-purple-50 hover:border-purple-300 border-2 border-transparent transition-all duration-200">

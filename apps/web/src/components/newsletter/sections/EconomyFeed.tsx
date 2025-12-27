@@ -100,7 +100,12 @@ export default function EconomyFeed() {
 
       {/* Related Articles */}
       <div>
-        <h3 className="text-lg font-semibold text-slate-700 mb-4">Economic News & Analysis</h3>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-slate-700">Economic News & Analysis</h3>
+          <a href="/news?category=economy" className="text-sm font-medium text-emerald-600 hover:text-emerald-700 flex items-center gap-1">
+            View All Articles →
+          </a>
+        </div>
         <ul className="space-y-3">
           {articles.map((article, index) => (
             <li key={index} className="flex items-start gap-3 bg-slate-50 rounded-lg p-4 hover:bg-emerald-50 hover:border-emerald-300 border-2 border-transparent transition-all duration-200">

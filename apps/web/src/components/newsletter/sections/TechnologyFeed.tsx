@@ -67,12 +67,48 @@ export default function TechnologyFeed() {
     fetchTechNews();
   }, []);
 
+  const techIndicators = [
+    { name: 'NASDAQ', value: '15,842', change: '+1.4%', icon: '📊', color: 'blue' },
+    { name: 'AI Market Cap', value: '$2.8T', change: '+12.5%', icon: '🤖', color: 'purple' },
+    { name: 'Tech IPOs YTD', value: '127', change: '+23', icon: '🚀', color: 'indigo' },
+    { name: 'VC Funding', value: '$89B', change: '+8.3%', icon: '💰', color: 'green' },
+  ]
+
+  const colorMap: Record<string, string> = {
+    blue: 'bg-blue-500',
+    purple: 'bg-purple-500',
+    indigo: 'bg-indigo-500',
+    green: 'bg-green-500',
+  }
+
   return (
     <div className="section-card animate-slide-up">
       <h2 className="section-title">
-        <span className="text-3xl">💻</span>
-        Technology Feed
+        <div className="flex items-center gap-3 flex-1">
+          <span className="text-3xl">💻</span>
+          <div className="flex flex-col">
+            <span>Technology Feed</span>
+            <span className="text-xs font-normal text-blue-700">🚀 Tech industry news, trends & innovations</span>
+          </div>
+        </div>
+        <a href="/news?category=tech" className="text-xs font-normal text-blue-600 bg-blue-100 px-3 py-1 rounded-full hover:bg-blue-200 transition-colors">
+          View All Articles →
+        </a>
       </h2>
+
+      {/* Tech Market Dashboard */}
+      <div className="mb-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+        {techIndicators.map((indicator) => (
+          <div key={indicator.name} className={`${colorMap[indicator.color]} text-white rounded-lg p-4 shadow-md`}>
+            <div className="text-2xl mb-2">{indicator.icon}</div>
+            <div className="text-xs font-medium text-white/80 mb-1">{indicator.name}</div>
+            <div className="text-2xl font-bold mb-1">{indicator.value}</div>
+            <div className={`text-xs font-semibold ${indicator.change.startsWith('+') ? 'text-green-200' : 'text-red-200'}`}>
+              {indicator.change}
+            </div>
+          </div>
+        ))}
+      </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {loading ? (

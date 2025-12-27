@@ -38,17 +38,48 @@ export default function PropertyFeed() {
     )
   }
 
+  const propertyIndicators = [
+    { name: 'Sydney Median', value: '$1.42M', change: '+2.1%', icon: '🏙️', color: 'orange' },
+    { name: 'Melbourne Median', value: '$985K', change: '+1.8%', icon: '🌆', color: 'amber' },
+    { name: 'Brisbane Median', value: '$815K', change: '+3.2%', icon: '☀️', color: 'yellow' },
+    { name: 'Perth Median', value: '$685K', change: '+4.5%', icon: '🌊', color: 'blue' },
+  ]
+
+  const colorMap: Record<string, string> = {
+    orange: 'bg-orange-500',
+    amber: 'bg-amber-500',
+    yellow: 'bg-yellow-500',
+    blue: 'bg-blue-500',
+  }
+
   return (
     <div className="section-card animate-slide-up">
       <h2 className="section-title">
-        <span className="text-3xl">🏠</span>
-        Property Feed
+        <div className="flex items-center gap-3 flex-1">
+          <span className="text-3xl">🏠</span>
+          <div className="flex flex-col">
+            <span>Property Feed</span>
+            <span className="text-xs font-normal text-orange-700">🏘️ Australian property market data & news</span>
+          </div>
+        </div>
         {!error && articles.length > 0 && (
           <span className="ml-auto text-xs font-normal text-orange-600 bg-orange-100 px-3 py-1 rounded-full">
             LIVE NEWS ✨
           </span>
         )}
       </h2>
+
+      {/* Property Market Dashboard */}
+      <div className="mb-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+        {propertyIndicators.map((indicator) => (
+          <div key={indicator.name} className={`${colorMap[indicator.color]} text-white rounded-lg p-4 shadow-md`}>
+            <div className="text-2xl mb-2">{indicator.icon}</div>
+            <div className="text-xs font-medium text-white/80 mb-1">{indicator.name}</div>
+            <div className="text-2xl font-bold mb-1">{indicator.value}</div>
+            <div className="text-xs font-semibold text-green-200">{indicator.change}</div>
+          </div>
+        ))}
+      </div>
 
       {/* Headline Story */}
       <div className="bg-gradient-to-br from-orange-50 to-amber-50 border-2 border-orange-200 rounded-lg p-6 mb-6">
@@ -66,7 +97,12 @@ export default function PropertyFeed() {
 
       {/* Related Articles */}
       <div>
-        <h3 className="text-lg font-semibold text-slate-700 mb-4">Latest Property News</h3>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-slate-700">Latest Property News</h3>
+          <a href="/news?category=property" className="text-sm font-medium text-orange-600 hover:text-orange-700 flex items-center gap-1">
+            View All Articles →
+          </a>
+        </div>
         <ul className="space-y-3">
           {articles.map((article, index) => (
             <li key={index} className="flex items-start gap-3 bg-slate-50 rounded-lg p-4 hover:bg-orange-50 hover:border-orange-300 border-2 border-transparent transition-all duration-200">

@@ -39,17 +39,50 @@ export default function StocksFeed() {
     )
   }
 
+  const marketIndicators = [
+    { name: 'ASX 200', value: '7,845', change: '+1.2%', icon: '🇦🇺', color: 'blue' },
+    { name: 'S&P 500', value: '4,567', change: '+0.8%', icon: '🇺🇸', color: 'green' },
+    { name: 'Nikkei 225', value: '32,145', change: '+0.5%', icon: '🇯🇵', color: 'red' },
+    { name: 'FTSE 100', value: '7,678', change: '-0.3%', icon: '🇬🇧', color: 'yellow' },
+  ]
+
+  const colorMap: Record<string, string> = {
+    blue: 'bg-blue-500',
+    green: 'bg-green-500',
+    red: 'bg-red-500',
+    yellow: 'bg-yellow-500',
+  }
+
   return (
     <div className="section-card animate-slide-up">
       <h2 className="section-title">
-        <span className="text-3xl">💹</span>
-        Stocks Feed
+        <div className="flex items-center gap-3 flex-1">
+          <span className="text-3xl">💹</span>
+          <div className="flex flex-col">
+            <span>Stocks Feed</span>
+            <span className="text-xs font-normal text-blue-700">📊 Global market indices & stock news</span>
+          </div>
+        </div>
         {!error && articles.length > 0 && (
           <span className="ml-auto text-xs font-normal text-blue-600 bg-blue-100 px-3 py-1 rounded-full">
             LIVE NEWS ✨
           </span>
         )}
       </h2>
+
+      {/* Market Indices Dashboard */}
+      <div className="mb-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+        {marketIndicators.map((indicator) => (
+          <div key={indicator.name} className={`${colorMap[indicator.color]} text-white rounded-lg p-4 shadow-md`}>
+            <div className="text-2xl mb-2">{indicator.icon}</div>
+            <div className="text-xs font-medium text-white/80 mb-1">{indicator.name}</div>
+            <div className="text-2xl font-bold mb-1">{indicator.value}</div>
+            <div className={`text-xs font-semibold ${indicator.change.startsWith('+') ? 'text-green-200' : 'text-red-200'}`}>
+              {indicator.change}
+            </div>
+          </div>
+        ))}
+      </div>
 
       {/* Headline Story */}
       <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-lg p-6 mb-6">
@@ -67,7 +100,12 @@ export default function StocksFeed() {
 
       {/* Related Articles */}
       <div>
-        <h3 className="text-lg font-semibold text-slate-700 mb-4">Top Stock Market News</h3>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-slate-700">Top Stock Market News</h3>
+          <a href="/news?category=stocks" className="text-sm font-medium text-blue-600 hover:text-blue-700 flex items-center gap-1">
+            View All Articles →
+          </a>
+        </div>
         <ul className="space-y-3">
           {articles.map((article, index) => (
             <li key={index} className="flex items-start gap-3 bg-slate-50 rounded-lg p-4 hover:bg-blue-50 hover:border-blue-300 border-2 border-transparent transition-all duration-200">
