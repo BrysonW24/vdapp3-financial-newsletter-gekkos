@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 
@@ -14,7 +14,7 @@ interface NewsArticle {
   category: string
 }
 
-export default function NewsIntelligencePage() {
+function NewsIntelligenceContent() {
   const searchParams = useSearchParams()
   const categoryParam = searchParams.get('category')
 
@@ -314,5 +314,20 @@ export default function NewsIntelligencePage() {
         )}
       </div>
     </div>
+  )
+}
+
+export default function NewsIntelligencePage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div>
+          <p className="mt-4 text-gray-600">Loading news intelligence...</p>
+        </div>
+      </div>
+    }>
+      <NewsIntelligenceContent />
+    </Suspense>
   )
 }
