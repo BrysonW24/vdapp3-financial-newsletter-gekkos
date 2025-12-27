@@ -47,6 +47,13 @@ export default function Header() {
               Today
             </Link>
             <Link
+              href="/news"
+              className="px-4 py-2 bg-gecko-500 hover:bg-gecko-600 rounded-lg transition-colors duration-200 backdrop-blur-sm font-medium shadow-md flex items-center gap-2"
+            >
+              <span>📰</span>
+              News Intelligence
+            </Link>
+            <Link
               href="/archive"
               className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors duration-200 backdrop-blur-sm"
             >

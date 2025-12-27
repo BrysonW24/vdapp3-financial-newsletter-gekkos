@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 
 interface NewsArticle {
   id: string
@@ -14,12 +15,22 @@ interface NewsArticle {
 }
 
 export default function NewsIntelligencePage() {
+  const searchParams = useSearchParams()
+  const categoryParam = searchParams.get('category')
+
   const [articles, setArticles] = useState<NewsArticle[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [selectedCategory, setSelectedCategory] = useState<string>('all')
+  const [selectedCategory, setSelectedCategory] = useState<string>(categoryParam || 'all')
   const [selectedSource, setSelectedSource] = useState<string>('all')
   const [searchQuery, setSearchQuery] = useState<string>('')
+
+  // Update category when URL param changes
+  useEffect(() => {
+    if (categoryParam) {
+      setSelectedCategory(categoryParam)
+    }
+  }, [categoryParam])
 
   useEffect(() => {
     fetchArticles()
@@ -29,38 +40,32 @@ export default function NewsIntelligencePage() {
     try {
       setLoading(true)
 
-      // Fetch from multiple categories
-      const categories = selectedCategory === 'all'
-        ? ['stocks', 'crypto', 'tech', 'property', 'economy']
-        : [selectedCategory]
+      // Fetch from API with category parameter
+      const response = await fetch(`/api/news?category=${selectedCategory}`)
+      const data = await response.json()
 
-      const allArticles: NewsArticle[] = []
+      if (response.ok && Array.isArray(data)) {
+        // Transform articles to match our interface
+        const transformedArticles = data.map((article: any, index: number) => ({
+          id: `${article.category || selectedCategory}-${index}`,
+          title: article.title || 'Untitled',
+          content: article.description || article.summary || '',
+          source: article.source || 'Unknown',
+          sourceUrl: article.url || '#',
+          publishedAt: article.publishedAt || new Date().toISOString(),
+          category: article.category || selectedCategory,
+        }))
 
-      for (const cat of categories) {
-        const response = await fetch(`/api/news?category=${cat}`)
-        const data = await response.json()
+        // Sort by published date (newest first)
+        transformedArticles.sort((a, b) =>
+          new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+        )
 
-        if (response.ok && Array.isArray(data)) {
-          const transformedArticles = data.map((article: any, index: number) => ({
-            id: `${cat}-${index}`,
-            title: article.title || 'Untitled',
-            content: article.description || article.summary || '',
-            source: article.source || 'Unknown',
-            sourceUrl: article.url || '#',
-            publishedAt: article.publishedAt || new Date().toISOString(),
-            category: cat,
-          }))
-          allArticles.push(...transformedArticles)
-        }
+        setArticles(transformedArticles)
+        setError(null)
+      } else {
+        setError('Invalid response from server')
       }
-
-      // Sort by published date (newest first)
-      allArticles.sort((a, b) =>
-        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-      )
-
-      setArticles(allArticles)
-      setError(null)
     } catch (err) {
       setError('Failed to fetch news articles.')
       console.error('Error fetching articles:', err)
@@ -108,27 +113,64 @@ export default function NewsIntelligencePage() {
     return colors[category] || 'bg-gray-100 text-gray-800'
   }
 
+  const getCategoryIcon = (category: string): string => {
+    const icons: Record<string, string> = {
+      all: '📰',
+      stocks: '💹',
+      crypto: '₿',
+      tech: '💻',
+      property: '🏠',
+      economy: '🏦',
+    }
+    return icons[category] || '📰'
+  }
+
+  const getCategoryName = (category: string): string => {
+    const names: Record<string, string> = {
+      all: 'All News',
+      stocks: 'Stocks & Markets',
+      crypto: 'Cryptocurrency',
+      tech: 'Technology',
+      property: 'Property',
+      economy: 'Economy',
+    }
+    return names[category] || category.charAt(0).toUpperCase() + category.slice(1)
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
+      <div className="bg-gradient-to-r from-green-600 to-emerald-700 text-white border-b border-green-700 sticky top-0 z-10 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-4">
-              <Link href="/" className="text-2xl font-bold text-green-600">
+              <Link href="/" className="text-2xl font-bold hover:text-green-100 transition-colors">
                 🦎 Gekkos
               </Link>
-              <span className="text-gray-400">|</span>
-              <h1 className="text-xl font-semibold text-gray-900">
-                News Intelligence
-              </h1>
+              <span className="text-green-300">|</span>
+              <div className="flex flex-col">
+                <h1 className="text-xl font-semibold">
+                  {getCategoryIcon(selectedCategory)} News Intelligence
+                </h1>
+                <p className="text-xs text-green-100">
+                  {getCategoryName(selectedCategory)}
+                </p>
+              </div>
             </div>
-            <Link
-              href="/news/search"
-              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
-            >
-              Advanced Search
-            </Link>
+            <div className="flex items-center gap-3">
+              <Link
+                href="/"
+                className="px-4 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-colors border border-white/20"
+              >
+                ← Home
+              </Link>
+              <Link
+                href="/news/search"
+                className="px-4 py-2 bg-white text-green-700 rounded-lg hover:bg-green-50 transition-colors font-medium"
+              >
+                Advanced Search
+              </Link>
+            </div>
           </div>
         </div>
       </div>

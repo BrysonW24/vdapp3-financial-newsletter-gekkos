@@ -39,28 +39,22 @@ export default function AdvancedSearchPage() {
     setSearched(true)
 
     try {
-      const categories = filters.category === 'all'
-        ? ['stocks', 'crypto', 'tech', 'property', 'economy']
-        : [filters.category]
+      // Fetch from API with category parameter
+      const response = await fetch(`/api/news?category=${filters.category}`)
+      const data = await response.json()
 
-      const allArticles: NewsArticle[] = []
+      let allArticles: NewsArticle[] = []
 
-      for (const cat of categories) {
-        const response = await fetch(`/api/news?category=${cat}`)
-        const data = await response.json()
-
-        if (response.ok && Array.isArray(data)) {
-          const transformedArticles = data.map((article: any, index: number) => ({
-            id: `${cat}-${index}`,
-            title: article.title || 'Untitled',
-            content: article.description || article.summary || '',
-            source: article.source || 'Unknown',
-            sourceUrl: article.url || '#',
-            publishedAt: article.publishedAt || new Date().toISOString(),
-            category: cat,
-          }))
-          allArticles.push(...transformedArticles)
-        }
+      if (response.ok && Array.isArray(data)) {
+        allArticles = data.map((article: any, index: number) => ({
+          id: `${article.category || filters.category}-${index}`,
+          title: article.title || 'Untitled',
+          content: article.description || article.summary || '',
+          source: article.source || 'Unknown',
+          sourceUrl: article.url || '#',
+          publishedAt: article.publishedAt || new Date().toISOString(),
+          category: article.category || filters.category,
+        }))
       }
 
       // Apply filters
@@ -138,21 +132,40 @@ export default function AdvancedSearchPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200">
+      <div className="bg-gradient-to-r from-green-600 to-emerald-700 text-white border-b border-green-700 sticky top-0 z-10 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-4">
-              <Link href="/" className="text-2xl font-bold text-green-600">
+              <Link href="/" className="text-2xl font-bold hover:text-green-100 transition-colors">
                 🦎 Gekkos
               </Link>
-              <span className="text-gray-400">|</span>
-              <Link href="/news" className="text-gray-600 hover:text-gray-900">
+              <span className="text-green-300">|</span>
+              <Link href="/news" className="text-green-100 hover:text-white transition-colors">
                 News
               </Link>
-              <span className="text-gray-400">|</span>
-              <h1 className="text-xl font-semibold text-gray-900">
-                Advanced Search
-              </h1>
+              <span className="text-green-300">|</span>
+              <div className="flex flex-col">
+                <h1 className="text-xl font-semibold">
+                  🔍 Advanced Search
+                </h1>
+                <p className="text-xs text-green-100">
+                  Multi-criteria news search
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <Link
+                href="/news"
+                className="px-4 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-colors border border-white/20"
+              >
+                ← Back to News
+              </Link>
+              <Link
+                href="/"
+                className="px-4 py-2 bg-white text-green-700 rounded-lg hover:bg-green-50 transition-colors font-medium"
+              >
+                Home
+              </Link>
             </div>
           </div>
         </div>
