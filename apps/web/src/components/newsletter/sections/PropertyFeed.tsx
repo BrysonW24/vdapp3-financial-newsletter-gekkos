@@ -39,8 +39,8 @@ export default function PropertyFeed() {
         ))}
       </div>
 
-      {/* Additional Stats */}
-      <div className="mb-6 grid grid-cols-2 md:grid-cols-3 gap-4">
+      {/* Additional Stats - Row 1 */}
+      <div className="mb-4 grid grid-cols-2 md:grid-cols-3 gap-4">
         <div className="bg-white border-2 border-orange-200 rounded-lg p-4">
           <div className="text-orange-600 text-sm font-medium mb-1">National Clearance Rate</div>
           <div className="text-3xl font-bold text-slate-900">68.4%</div>
@@ -55,6 +55,25 @@ export default function PropertyFeed() {
           <div className="text-orange-600 text-sm font-medium mb-1">Rental Yield (Sydney)</div>
           <div className="text-3xl font-bold text-slate-900">3.2%</div>
           <div className="text-xs text-slate-600">Gross annual return</div>
+        </div>
+      </div>
+
+      {/* Additional Stats - Row 2 */}
+      <div className="mb-6 grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="bg-white border-2 border-orange-200 rounded-lg p-4">
+          <div className="text-orange-600 text-sm font-medium mb-1">Rental Vacancy Rate</div>
+          <div className="text-3xl font-bold text-slate-900">1.8%</div>
+          <div className="text-xs text-red-600 font-semibold">Tight market</div>
+        </div>
+        <div className="bg-white border-2 border-orange-200 rounded-lg p-4">
+          <div className="text-orange-600 text-sm font-medium mb-1">New Listings</div>
+          <div className="text-3xl font-bold text-slate-900">12,450</div>
+          <div className="text-xs text-green-600 font-semibold">+5.2% this week</div>
+        </div>
+        <div className="bg-white border-2 border-orange-200 rounded-lg p-4">
+          <div className="text-orange-600 text-sm font-medium mb-1">Total Sales Volume</div>
+          <div className="text-3xl font-bold text-slate-900">$4.8B</div>
+          <div className="text-xs text-green-600 font-semibold">+8.1% this month</div>
         </div>
       </div>
 

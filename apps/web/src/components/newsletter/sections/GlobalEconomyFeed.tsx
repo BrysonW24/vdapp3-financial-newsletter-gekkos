@@ -41,8 +41,8 @@ export default function GlobalEconomyFeed() {
         ))}
       </div>
 
-      {/* Additional Global Metrics */}
-      <div className="mb-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+      {/* Additional Global Metrics - Row 1 */}
+      <div className="mb-4 grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className="bg-white border-2 border-blue-200 rounded-lg p-4">
           <div className="text-blue-600 text-sm font-medium mb-1">US Fed Rate</div>
           <div className="text-3xl font-bold text-slate-900">5.50%</div>
@@ -62,6 +62,30 @@ export default function GlobalEconomyFeed() {
           <div className="text-blue-600 text-sm font-medium mb-1">USD Index</div>
           <div className="text-3xl font-bold text-slate-900">103.5</div>
           <div className="text-xs text-red-600 font-semibold">-0.3% this week</div>
+        </div>
+      </div>
+
+      {/* Additional Global Metrics - Row 2 */}
+      <div className="mb-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="bg-white border-2 border-blue-200 rounded-lg p-4">
+          <div className="text-blue-600 text-sm font-medium mb-1">Oil Price (Brent)</div>
+          <div className="text-3xl font-bold text-slate-900">$82.50</div>
+          <div className="text-xs text-green-600 font-semibold">+1.8% this week</div>
+        </div>
+        <div className="bg-white border-2 border-blue-200 rounded-lg p-4">
+          <div className="text-blue-600 text-sm font-medium mb-1">Gold</div>
+          <div className="text-3xl font-bold text-slate-900">$2,075</div>
+          <div className="text-xs text-green-600 font-semibold">+1.2% today</div>
+        </div>
+        <div className="bg-white border-2 border-blue-200 rounded-lg p-4">
+          <div className="text-blue-600 text-sm font-medium mb-1">10Y US Treasury</div>
+          <div className="text-3xl font-bold text-slate-900">4.35%</div>
+          <div className="text-xs text-slate-600">Yield stable</div>
+        </div>
+        <div className="bg-white border-2 border-blue-200 rounded-lg p-4">
+          <div className="text-blue-600 text-sm font-medium mb-1">VIX (Fear Index)</div>
+          <div className="text-3xl font-bold text-slate-900">14.2</div>
+          <div className="text-xs text-green-600 font-semibold">-0.8 (Low volatility)</div>
         </div>
       </div>
 

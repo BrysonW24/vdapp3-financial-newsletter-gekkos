@@ -36,16 +36,16 @@ export default function Home() {
   const sections = [
     { id: 'global-economy', title: 'Global Economy', icon: '🌍' },
     { id: 'economy', title: 'Australia Economy', icon: '🇦🇺' },
-    { id: 'trading', title: 'Trading Feed', icon: '📈' },
-    { id: 'property', title: 'Property Feed', icon: '🏠' },
     { id: 'stocks', title: 'Stocks Feed', icon: '💹' },
     { id: 'commodities', title: 'Commodities & Materials', icon: '📊' },
     { id: 'crypto', title: 'Crypto Feed', icon: '₿' },
+    { id: 'trading', title: 'Trading Feed', icon: '📈' },
+    { id: 'property', title: 'Property Feed', icon: '🏠' },
     { id: 'ipo', title: 'IPO Feed', icon: '🚀' },
     { id: 'earnings', title: 'Earnings Feed', icon: '💰' },
     { id: 'technology', title: 'Technology Feed', icon: '💻' },
-    { id: 'knowledge', title: 'Knowledge Feed', icon: '📚' },
     { id: 'venture-capital', title: 'Venture Capital', icon: '💼' },
+    { id: 'knowledge', title: 'Knowledge Feed', icon: '📚' },
     { id: 'graphic', title: 'Graphic of the Day', icon: '📊' },
     { id: 'quote', title: 'Quote of the Day', icon: '💭' },
     ...(portfolioEnabled ? [{ id: 'portfolio', title: 'My Portfolio News', icon: '💼' }] : []),
@@ -78,14 +78,6 @@ export default function Home() {
             <EconomyFeed />
           </section>
 
-          <section id="trading">
-            <TradingFeed />
-          </section>
-
-          <section id="property">
-            <PropertyFeed />
-          </section>
-
           <section id="stocks">
             <StocksFeed />
           </section>
@@ -96,6 +88,14 @@ export default function Home() {
 
           <section id="crypto">
             <CryptoFeed />
+          </section>
+
+          <section id="trading">
+            <TradingFeed />
+          </section>
+
+          <section id="property">
+            <PropertyFeed />
           </section>
 
           <section id="ipo">
@@ -110,12 +110,12 @@ export default function Home() {
             <TechnologyFeed />
           </section>
 
-          <section id="knowledge">
-            <KnowledgeFeed />
-          </section>
-
           <section id="venture-capital">
             <VentureCapitalDashboard />
+          </section>
+
+          <section id="knowledge">
+            <KnowledgeFeed />
           </section>
 
           <section id="graphic">

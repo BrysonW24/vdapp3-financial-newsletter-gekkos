@@ -3,17 +3,17 @@
 export default function EconomyFeed() {
 
   const economicIndicators = [
-    { name: 'Cash Rate', value: '4.35%', change: 'Unchanged', icon: '🏦', color: 'blue' },
-    { name: 'CPI (YoY)', value: '4.1%', change: '↓ from 4.3%', icon: '📊', color: 'green' },
-    { name: 'Unemployment', value: '3.7%', change: 'Stable', icon: '👥', color: 'yellow' },
-    { name: 'GDP Growth', value: '2.1%', change: '↑ from 1.8%', icon: '📈', color: 'purple' },
+    { name: 'Cash Rate', value: '4.35%', change: 'Unchanged', icon: '🏦', color: 'emerald' },
+    { name: 'CPI (YoY)', value: '4.1%', change: '↓ from 4.3%', icon: '📊', color: 'teal' },
+    { name: 'Unemployment', value: '3.7%', change: 'Stable', icon: '👥', color: 'cyan' },
+    { name: 'GDP Growth', value: '2.1%', change: '↑ from 1.8%', icon: '📈', color: 'green' },
   ]
 
   const colorMap: Record<string, string> = {
-    blue: 'bg-blue-500',
+    emerald: 'bg-emerald-500',
+    teal: 'bg-teal-500',
+    cyan: 'bg-cyan-500',
     green: 'bg-green-500',
-    yellow: 'bg-yellow-500',
-    purple: 'bg-purple-500',
   }
 
   return (
@@ -40,8 +40,8 @@ export default function EconomyFeed() {
         ))}
       </div>
 
-      {/* Additional Economic Metrics */}
-      <div className="mb-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+      {/* Additional Economic Metrics - Row 1 */}
+      <div className="mb-4 grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className="bg-white border-2 border-emerald-200 rounded-lg p-4">
           <div className="text-emerald-600 text-sm font-medium mb-1">AUD/USD</div>
           <div className="text-3xl font-bold text-slate-900">$0.68</div>
@@ -61,6 +61,30 @@ export default function EconomyFeed() {
           <div className="text-emerald-600 text-sm font-medium mb-1">Retail Sales (MoM)</div>
           <div className="text-3xl font-bold text-slate-900">+0.3%</div>
           <div className="text-xs text-green-600 font-semibold">Above forecast</div>
+        </div>
+      </div>
+
+      {/* Additional Economic Metrics - Row 2 */}
+      <div className="mb-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="bg-white border-2 border-emerald-200 rounded-lg p-4">
+          <div className="text-emerald-600 text-sm font-medium mb-1">Trade Balance</div>
+          <div className="text-3xl font-bold text-slate-900">$8.9B</div>
+          <div className="text-xs text-green-600 font-semibold">Surplus (Monthly)</div>
+        </div>
+        <div className="bg-white border-2 border-emerald-200 rounded-lg p-4">
+          <div className="text-emerald-600 text-sm font-medium mb-1">Consumer Confidence</div>
+          <div className="text-3xl font-bold text-slate-900">82.4</div>
+          <div className="text-xs text-green-600 font-semibold">+2.1 pts this month</div>
+        </div>
+        <div className="bg-white border-2 border-emerald-200 rounded-lg p-4">
+          <div className="text-emerald-600 text-sm font-medium mb-1">Business Confidence</div>
+          <div className="text-3xl font-bold text-slate-900">+6</div>
+          <div className="text-xs text-green-600 font-semibold">Improving sentiment</div>
+        </div>
+        <div className="bg-white border-2 border-emerald-200 rounded-lg p-4">
+          <div className="text-emerald-600 text-sm font-medium mb-1">Wage Growth (YoY)</div>
+          <div className="text-3xl font-bold text-slate-900">4.1%</div>
+          <div className="text-xs text-green-600 font-semibold">Strong growth</div>
         </div>
       </div>
 
