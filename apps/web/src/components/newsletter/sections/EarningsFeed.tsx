@@ -89,11 +89,16 @@ export default function EarningsFeed() {
   return (
     <div className="section-card animate-slide-up">
       <h2 className="section-title">
-        <span className="text-3xl">💰</span>
-        Earnings Feed
+        <div className="flex items-center gap-3 flex-1">
+          <span className="text-3xl">💰</span>
+          <div className="flex flex-col">
+            <span>Earnings Feed</span>
+            <span className="text-xs font-normal text-green-700">📈 Quarterly earnings reports & performance forecasts</span>
+          </div>
+        </div>
       </h2>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-3">
         {loading ? (
           // Loading skeletons
           Array.from({ length: 3 }).map((_, index) => (
@@ -171,11 +176,16 @@ export default function EarningsFeed() {
         )}
       </div>
 
-      {/* Load More Button */}
+      {/* View All Button */}
       <div className="mt-8 text-center">
-        <button className="px-6 py-3 bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-lg hover:from-green-700 hover:to-blue-700 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl">
-          View Earnings Calendar
-        </button>
+        <a
+          href="/news?category=stocks"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-lg hover:from-green-700 hover:to-blue-700 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl"
+        >
+          <span>📰</span>
+          View All Earnings News & Analysis
+          <span>→</span>
+        </a>
       </div>
     </div>
   );

@@ -64,11 +64,16 @@ export default function IPOFeed() {
   return (
     <div className="section-card animate-slide-up">
       <h2 className="section-title">
-        <span className="text-3xl">🚀</span>
-        IPO Feed
+        <div className="flex items-center gap-3 flex-1">
+          <span className="text-3xl">🚀</span>
+          <div className="flex flex-col">
+            <span>IPO Feed</span>
+            <span className="text-xs font-normal text-blue-700">📊 Upcoming initial public offerings & market debuts</span>
+          </div>
+        </div>
       </h2>
 
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="grid gap-6 md:grid-cols-3">
         {loading ? (
           // Loading skeletons
           Array.from({ length: 2 }).map((_, index) => (
@@ -143,11 +148,16 @@ export default function IPOFeed() {
         )}
       </div>
 
-      {/* Load More Button */}
+      {/* View All Button */}
       <div className="mt-8 text-center">
-        <button className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-600 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl">
-          View All Upcoming IPOs
-        </button>
+        <a
+          href="/news?category=stocks"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl"
+        >
+          <span>📰</span>
+          View All IPO News & Analysis
+          <span>→</span>
+        </a>
       </div>
     </div>
   );

@@ -82,12 +82,45 @@ export default function CommoditiesDashboard() {
   return (
     <div className="section-card animate-slide-up">
       <h2 className="section-title">
-        <span className="text-3xl">📊</span>
-        Commodities & Materials Tracker
+        <div className="flex items-center gap-3 flex-1">
+          <span className="text-3xl">📊</span>
+          <div className="flex flex-col">
+            <span>Commodities & Materials Tracker</span>
+            <span className="text-xs font-normal text-amber-700">💎 Precious metals, AI materials & space tech commodities</span>
+          </div>
+        </div>
       </h2>
 
+      {/* Key Commodities Dashboard */}
+      <div className="mb-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="bg-gradient-to-br from-yellow-500 to-amber-600 text-white rounded-lg p-4 shadow-md">
+          <div className="text-2xl mb-2">💍</div>
+          <div className="text-xs font-medium text-white/80 mb-1">Gold</div>
+          <div className="text-2xl font-bold mb-1">$2,075</div>
+          <div className="text-xs font-semibold text-green-200">+1.24%</div>
+        </div>
+        <div className="bg-gradient-to-br from-slate-400 to-slate-600 text-white rounded-lg p-4 shadow-md">
+          <div className="text-2xl mb-2">⚪</div>
+          <div className="text-xs font-medium text-white/80 mb-1">Silver</div>
+          <div className="text-2xl font-bold mb-1">$31.25</div>
+          <div className="text-xs font-semibold text-red-200">-2.35%</div>
+        </div>
+        <div className="bg-gradient-to-br from-orange-500 to-red-600 text-white rounded-lg p-4 shadow-md">
+          <div className="text-2xl mb-2">🔶</div>
+          <div className="text-xs font-medium text-white/80 mb-1">Copper</div>
+          <div className="text-2xl font-bold mb-1">$4.85</div>
+          <div className="text-xs font-semibold text-green-200">+3.19%</div>
+        </div>
+        <div className="bg-gradient-to-br from-purple-500 to-indigo-600 text-white rounded-lg p-4 shadow-md">
+          <div className="text-2xl mb-2">⚡</div>
+          <div className="text-xs font-medium text-white/80 mb-1">Lithium</div>
+          <div className="text-2xl font-bold mb-1">$89.75</div>
+          <div className="text-xs font-semibold text-green-200">+6.21%</div>
+        </div>
+      </div>
+
       {/* Category Tabs */}
-      <div className="flex flex-wrap gap-3 mb-8">
+      <div className="flex flex-wrap gap-3 mb-6">
         {categories.map((cat) => (
           <button
             key={cat.id}
@@ -190,11 +223,16 @@ export default function CommoditiesDashboard() {
         </div>
       </div>
 
-      {/* Load More Button */}
+      {/* View All Button */}
       <div className="mt-8 text-center">
-        <button className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl">
-          View Full Analysis
-        </button>
+        <a
+          href="/news?category=economy"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-lg hover:from-amber-700 hover:to-orange-700 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl"
+        >
+          <span>📰</span>
+          View All Commodities News & Market Analysis
+          <span>→</span>
+        </a>
       </div>
     </div>
   );

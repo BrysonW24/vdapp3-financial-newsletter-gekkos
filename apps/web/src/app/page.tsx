@@ -38,7 +38,8 @@ export default function Home() {
     { id: 'property', title: 'Property Feed', icon: '🏠' },
     { id: 'stocks', title: 'Stocks Feed', icon: '💹' },
     { id: 'crypto', title: 'Crypto Feed', icon: '₿' },
-    { id: 'earnings-ipo', title: 'Earnings & IPO Feed', icon: '📈' },
+    { id: 'ipo', title: 'IPO Feed', icon: '🚀' },
+    { id: 'earnings', title: 'Earnings Feed', icon: '💰' },
     { id: 'economy', title: 'Economy Feed', icon: '🏦' },
     { id: 'global-politics', title: 'Global Politics', icon: '🌍' },
     { id: 'technology', title: 'Technology Feed', icon: '💻' },
@@ -85,11 +86,12 @@ export default function Home() {
             <CryptoFeed />
           </section>
 
-          <section id="earnings-ipo">
-            <div className="grid gap-8 md:grid-cols-2">
-              <IPOFeed />
-              <EarningsFeed />
-            </div>
+          <section id="ipo">
+            <IPOFeed />
+          </section>
+
+          <section id="earnings">
+            <EarningsFeed />
           </section>
 
           <section id="economy">
