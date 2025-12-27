@@ -1,28 +1,6 @@
 'use client'
 
-import { useNews } from '@/lib/hooks/useNews'
-
-interface Article {
-  title: string
-  source: string
-  url: string
-}
-
 export default function EconomyFeed() {
-  const { articles: newsArticles, loading, error } = useNews('/api/news')
-
-  const headlineStory = {
-    title: newsArticles[0]?.title || 'RBA Holds Cash Rate Steady at 4.35%, Signals Data-Dependent Approach',
-    source: newsArticles[0]?.source || 'Australian Financial Review',
-    url: newsArticles[0]?.url || '#',
-    summary: newsArticles[0]?.description || 'The Reserve Bank of Australia kept the official cash rate unchanged at 4.35% for the third consecutive meeting.',
-  }
-
-  const articles: Article[] = newsArticles.slice(1, 6).map(article => ({
-    title: article.title,
-    source: article.source,
-    url: article.url,
-  }))
 
   const economicIndicators = [
     { name: 'Cash Rate', value: '4.35%', change: 'Unchanged', icon: '🏦', color: 'blue' },
@@ -36,20 +14,6 @@ export default function EconomyFeed() {
     green: 'bg-green-500',
     yellow: 'bg-yellow-500',
     purple: 'bg-purple-500',
-  }
-
-  if (loading) {
-    return (
-      <div className="section-card animate-slide-up">
-        <h2 className="section-title">
-          <span className="text-3xl">🎯</span>
-          Strategic Moat Finder
-        </h2>
-        <div className="flex items-center justify-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
-        </div>
-      </div>
-    )
   }
 
   return (
@@ -81,58 +45,40 @@ export default function EconomyFeed() {
         ))}
       </div>
 
-      {/* Headline Story */}
-      <div className="bg-gradient-to-br from-emerald-50 to-teal-50 border-2 border-emerald-200 rounded-lg p-6 mb-6">
-        <div className="flex items-start gap-3 mb-3">
-          <span className="text-3xl">🎯</span>
-          <div className="flex-1">
-            <div className="inline-block px-3 py-1 bg-emerald-600 text-white text-xs font-bold rounded-full mb-2">
-              RBA ANNOUNCEMENT
-            </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-2">{headlineStory.title}</h3>
-            <p className="text-sm text-slate-700 leading-relaxed mb-3">{headlineStory.summary}</p>
-            <a href={headlineStory.url} target="_blank" rel="noopener noreferrer" className="article-link text-sm font-medium">
-              Read full story on {headlineStory.source} →
-            </a>
-          </div>
+      {/* Additional Economic Metrics */}
+      <div className="mb-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="bg-white border-2 border-emerald-200 rounded-lg p-4">
+          <div className="text-emerald-600 text-sm font-medium mb-1">AUD/USD</div>
+          <div className="text-3xl font-bold text-slate-900">$0.68</div>
+          <div className="text-xs text-green-600 font-semibold">+0.5% today</div>
+        </div>
+        <div className="bg-white border-2 border-emerald-200 rounded-lg p-4">
+          <div className="text-emerald-600 text-sm font-medium mb-1">ASX 200 VIX</div>
+          <div className="text-3xl font-bold text-slate-900">12.4</div>
+          <div className="text-xs text-slate-600">Market volatility</div>
+        </div>
+        <div className="bg-white border-2 border-emerald-200 rounded-lg p-4">
+          <div className="text-emerald-600 text-sm font-medium mb-1">10Y Bond Yield</div>
+          <div className="text-3xl font-bold text-slate-900">4.12%</div>
+          <div className="text-xs text-red-600 font-semibold">+0.08% this week</div>
+        </div>
+        <div className="bg-white border-2 border-emerald-200 rounded-lg p-4">
+          <div className="text-emerald-600 text-sm font-medium mb-1">Retail Sales (MoM)</div>
+          <div className="text-3xl font-bold text-slate-900">+0.3%</div>
+          <div className="text-xs text-green-600 font-semibold">Above forecast</div>
         </div>
       </div>
 
-      {/* Related Articles */}
-      <div>
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-slate-700">Economic News & Analysis</h3>
-          <a href="/news?category=economy" className="text-sm font-medium text-emerald-600 hover:text-emerald-700 flex items-center gap-1">
-            View All Articles →
-          </a>
-        </div>
-        <ul className="space-y-3">
-          {articles.map((article, index) => (
-            <li key={index} className="flex items-start gap-3 bg-slate-50 rounded-lg p-4 hover:bg-emerald-50 hover:border-emerald-300 border-2 border-transparent transition-all duration-200">
-              <span className="text-emerald-600 font-bold text-sm mt-0.5">•</span>
-              <div className="flex-1">
-                <a href={article.url} target="_blank" rel="noopener noreferrer" className="article-link font-medium">
-                  {article.title}
-                </a>
-                <p className="text-xs text-slate-500 mt-1">Source: {article.source}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* Expert Commentary */}
-      <div className="mt-6 bg-amber-50 border-l-4 border-amber-500 rounded-r-lg p-4">
-        <div className="flex items-start gap-3">
-          <span className="text-2xl">💬</span>
-          <div>
-            <h4 className="font-semibold text-amber-900 mb-1">Expert View</h4>
-            <p className="text-sm text-amber-800 italic">
-              "The RBA's patient approach reflects confidence that inflation is trending downward without requiring further rate hikes. We expect the first cut by Q3 2024."
-            </p>
-            <p className="text-xs text-amber-700 mt-2">— Chief Economist, Major Bank</p>
-          </div>
-        </div>
+      {/* View All Articles Button */}
+      <div className="text-center">
+        <a
+          href="/news?category=economy"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium shadow-md hover:shadow-lg"
+        >
+          <span>📰</span>
+          View All Economic News & Analysis
+          <span>→</span>
+        </a>
       </div>
     </div>
   )

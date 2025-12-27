@@ -30,10 +30,10 @@ export default function Header() {
 
             <div>
               <h1 className="text-4xl md:text-5xl font-display font-bold tracking-tight">
-                Gekkos
+                Gekkos Dashboard
               </h1>
               <p className="text-slate-300 text-sm md:text-base mt-1 font-medium">
-                Your Daily Digest of Finance, Markets, and Knowledge
+                Real-Time Market Intelligence & Financial Insights
               </p>
             </div>
           </div>
@@ -42,9 +42,10 @@ export default function Header() {
           <nav className="flex items-center gap-4">
             <Link
               href="/"
-              className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors duration-200 backdrop-blur-sm"
+              className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors duration-200 backdrop-blur-sm flex items-center gap-2 font-medium"
             >
-              Today
+              <span>📊</span>
+              Dashboard
             </Link>
             <Link
               href="/news"
@@ -54,16 +55,11 @@ export default function Header() {
               News Intelligence
             </Link>
             <Link
-              href="/archive"
-              className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors duration-200 backdrop-blur-sm"
+              href="/news/search"
+              className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors duration-200 backdrop-blur-sm flex items-center gap-2"
             >
-              Archive
-            </Link>
-            <Link
-              href="/about"
-              className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors duration-200 backdrop-blur-sm"
-            >
-              About
+              <span>🔍</span>
+              Search
             </Link>
           </nav>
         </div>

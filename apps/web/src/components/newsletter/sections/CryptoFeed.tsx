@@ -1,13 +1,6 @@
 'use client'
 
 import { useCryptoData } from '@/lib/hooks/useCryptoData'
-import { useNews } from '@/lib/hooks/useNews'
-
-interface Article {
-  title: string
-  source: string
-  url: string
-}
 
 interface CryptoPrice {
   name: string
@@ -19,20 +12,6 @@ interface CryptoPrice {
 
 export default function CryptoFeed() {
   const { data, loading, error } = useCryptoData()
-  const { articles: newsArticles, loading: newsLoading } = useNews('/api/crypto-news')
-
-  const headlineStory = {
-    title: newsArticles[0]?.title || 'Bitcoin Surges Past $67K as Institutional Adoption Accelerates',
-    source: newsArticles[0]?.source || 'CoinDesk',
-    url: newsArticles[0]?.url || '#',
-    summary: newsArticles[0]?.description || 'Bitcoin broke through the $67,000 barrier today as major institutional investors continue to accumulate positions.',
-  }
-
-  const articles: Article[] = newsArticles.slice(1, 6).map(article => ({
-    title: article.title,
-    source: article.source,
-    url: article.url,
-  }))
 
   // Map crypto icons
   const cryptoIcons: Record<string, string> = {
@@ -130,43 +109,6 @@ export default function CryptoFeed() {
         )}
       </div>
 
-      {/* Headline Story */}
-      <div className="bg-gradient-to-br from-purple-50 to-indigo-50 border-2 border-purple-200 rounded-lg p-6 mb-6">
-        <div className="flex items-start gap-3 mb-3">
-          <span className="text-3xl">🚀</span>
-          <div className="flex-1">
-            <h3 className="text-xl font-bold text-slate-900 mb-2">{headlineStory.title}</h3>
-            <p className="text-sm text-slate-700 leading-relaxed mb-3">{headlineStory.summary}</p>
-            <a href={headlineStory.url} target="_blank" rel="noopener noreferrer" className="article-link text-sm font-medium">
-              Read full story on {headlineStory.source} →
-            </a>
-          </div>
-        </div>
-      </div>
-
-      {/* Related Articles */}
-      <div>
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-slate-700">Latest Crypto News</h3>
-          <a href="/news?category=crypto" className="text-sm font-medium text-purple-600 hover:text-purple-700 flex items-center gap-1">
-            View All Articles →
-          </a>
-        </div>
-        <ul className="space-y-3">
-          {articles.map((article, index) => (
-            <li key={index} className="flex items-start gap-3 bg-slate-50 rounded-lg p-4 hover:bg-purple-50 hover:border-purple-300 border-2 border-transparent transition-all duration-200">
-              <span className="text-purple-600 font-bold text-sm mt-0.5">•</span>
-              <div className="flex-1">
-                <a href={article.url} target="_blank" rel="noopener noreferrer" className="article-link font-medium">
-                  {article.title}
-                </a>
-                <p className="text-xs text-slate-500 mt-1">Source: {article.source}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-
       {/* Market Cap & Fear/Greed */}
       <div className="mt-6 grid md:grid-cols-2 gap-4">
         <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg p-4">
@@ -197,6 +139,18 @@ export default function CryptoFeed() {
             {data?.fearGreedIndex?.classification || 'Loading...'}
           </div>
         </div>
+      </div>
+
+      {/* View All Articles Button */}
+      <div className="mt-6 text-center">
+        <a
+          href="/news?category=crypto"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-medium shadow-md hover:shadow-lg"
+        >
+          <span>📰</span>
+          View All Crypto News & Analysis
+          <span>→</span>
+        </a>
       </div>
     </div>
   )
