@@ -62,16 +62,16 @@ function cleanHtmlContent(text: string): string {
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
     .replace(/&#x27;/g, "'")
-    .replace(/&#x2019;/g, ''')
-    .replace(/&#x2014;/g, '—')
-    .replace(/&#x2013;/g, '–')
+    .replace(/&#x2019;/g, "\u2019") // Right single quotation mark
+    .replace(/&#x2014;/g, "\u2014") // Em dash
+    .replace(/&#x2013;/g, "\u2013") // En dash
     .replace(/&nbsp;/g, ' ')
-    .replace(/&ndash;/g, '–')
-    .replace(/&mdash;/g, '—')
-    .replace(/&rsquo;/g, ''')
-    .replace(/&lsquo;/g, ''')
-    .replace(/&rdquo;/g, '"')
-    .replace(/&ldquo;/g, '"')
+    .replace(/&ndash;/g, "\u2013") // En dash
+    .replace(/&mdash;/g, "\u2014") // Em dash
+    .replace(/&rsquo;/g, "\u2019") // Right single quotation mark
+    .replace(/&lsquo;/g, "\u2018") // Left single quotation mark
+    .replace(/&rdquo;/g, "\u201D") // Right double quotation mark
+    .replace(/&ldquo;/g, "\u201C") // Left double quotation mark
 
   return cleaned.trim()
 }
