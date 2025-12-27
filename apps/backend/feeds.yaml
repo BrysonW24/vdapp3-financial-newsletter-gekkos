@@ -1,0 +1,267 @@
+# feeds.yaml
+# High-level config for your daily newsletter aggregator
+
+meta:
+  run_frequency: "daily"
+  timezone: "Australia/Sydney"
+
+apis:
+  alpha_vantage:
+    base_url: "https://www.alphavantage.co/query"
+    api_key_env: "ALPHAVANTAGE_API_KEY"
+
+  finage:
+    base_url: "https://api.finage.co.uk"
+    api_key_env: "FINAGE_API_KEY"
+
+  coingecko:
+    base_url: "https://api.coingecko.com/api/v3"
+
+  fear_greed:
+    base_url: "https://api.alternative.me/fng"
+
+  fmp:
+    base_url: "https://financialmodelingprep.com/api/v3"
+    api_key_env: "FMP_API_KEY"
+
+  marketaux:
+    base_url: "https://api.marketaux.com/v1/news/all"
+    api_key_env: "MARKETAUX_API_KEY"
+
+  newsdata:
+    base_url: "https://newsdata.io/api/1/news"
+    api_key_env: "NEWSDATA_API_KEY"
+
+  trading_economics:
+    base_url: "https://api.tradingeconomics.com"
+    api_key_env: "TRADING_ECON_API_KEY"
+
+sections:
+
+  # ─────────────────────────────
+  # MARKET / PRICE DATA SECTIONS
+  # ─────────────────────────────
+
+  - id: trading_feed_global_indices
+    title: "Trading Feed - Global Markets"
+    client: "alpha_vantage"
+    type: "market_data"
+    enabled: true
+    requests:
+      - name: "global_indices"
+        endpoint: "/query"
+        params:
+          function: "GLOBAL_QUOTE"
+          symbols: ["^AXJO", "^GSPC", "^N225", "^FTSE"]
+        # your Python code can expand 'symbols' into multiple calls
+    mapping:
+      card_type: "index"
+      fields:
+        symbol: "Global Quote.01. symbol"
+        price: "Global Quote.05. price"
+        change: "Global Quote.09. change"
+        change_percent: "Global Quote.10. change percent"
+
+  - id: featured_stocks
+    title: "Featured Stocks (Big 4 + BTC)"
+    client: "alpha_vantage"
+    type: "market_data"
+    enabled: true
+    stocks:
+      symbols: ["CBA.AX", "WBC.AX", "NAB.AX", "ANZ.AX"]
+    crypto:
+      client: "coingecko"
+      ids: ["bitcoin"]
+      vs_currency: "aud"
+
+  - id: sector_tiles
+    title: "Sector Performance Tiles"
+    client: "alpha_vantage"
+    type: "market_data"
+    enabled: true
+    # map each tile to an ETF
+    sectors:
+      - name: "Financials"
+        symbol: "XLF"
+      - name: "Materials"
+        symbol: "XMA.AX"
+      - name: "Healthcare"
+        symbol: "XLV"
+      - name: "Technology"
+        symbol: "XLK"
+
+  - id: crypto_feed_cards
+    title: "Crypto Feed"
+    client: "coingecko"
+    type: "market_data"
+    enabled: true
+    endpoint: "/simple/price"
+    params:
+      ids: ["bitcoin", "ethereum", "binancecoin", "solana"]
+      vs_currencies: ["usd", "aud"]
+      include_24hr_change: true
+
+  - id: crypto_market_summary
+    title: "Crypto Market Summary"
+    type: "composite"
+    enabled: true
+    sources:
+      market_cap:
+        client: "coingecko"
+        endpoint: "/global"
+      fear_greed:
+        client: "fear_greed"
+        endpoint: "/"
+        params:
+          limit: 1
+          format: "json"
+
+  # ─────────────────────────────
+  # NEWS SECTIONS
+  # ─────────────────────────────
+
+  - id: property_feed
+    title: "Property Feed"
+    client: "newsdata"
+    type: "news"
+    enabled: true
+    endpoint: "/"
+    params:
+      country: "au"
+      category: "business"
+      q: "property OR \"real estate\" OR housing"
+      language: "en"
+      page: 1
+      page_size: 10
+    ui:
+      hero_count: 1
+      list_count: 4
+
+  - id: stocks_news_feed
+    title: "Stocks Feed"
+    client: "marketaux"
+    type: "news"
+    enabled: true
+    params:
+      countries: "us,au"
+      language: "en"
+      filter_entities: true
+      group_similar: true
+      limit: 10
+      categories: "markets,stocks"
+    ui:
+      hero_count: 1
+      list_count: 5
+
+  - id: economic_news_analysis
+    title: "Economic News & Analysis"
+    client: "marketaux"
+    type: "news"
+    enabled: true
+    params:
+      language: "en"
+      categories: "economy,markets"
+      limit: 10
+    ui:
+      list_count: 5
+
+  - id: global_politics
+    title: "Global Politics"
+    client: "newsdata"
+    type: "news"
+    enabled: true
+    params:
+      category: "politics"
+      language: "en"
+      page_size: 8
+    ui:
+      list_count: 4
+
+  - id: technology_feed
+    title: "Technology Feed"
+    client: "newsdata"
+    type: "news"
+    enabled: true
+    params:
+      category: "technology"
+      language: "en"
+      page_size: 10
+    ui:
+      hero_count: 1
+      list_count: 4
+
+  # ─────────────────────────────
+  # EARNINGS / IPO / MACRO
+  # ─────────────────────────────
+
+  - id: earnings_feed
+    title: "Earnings Feed"
+    client: "fmp"
+    type: "earnings"
+    enabled: true
+    endpoint: "/earning_calendar"
+    params:
+      from: "TODAY_MINUS_3"   # placeholder tokens you resolve in Python
+      to: "TODAY_PLUS_3"
+    ui:
+      max_cards: 5
+
+  - id: ipo_feed
+    title: "IPO Feed"
+    client: "fmp"
+    type: "ipo"
+    enabled: true
+    endpoint: "/ipo_calendar"
+    params:
+      from: "TODAY"
+      to: "TODAY_PLUS_30"
+    ui:
+      max_cards: 3
+
+  - id: australia_economy_feed
+    title: "Australia Economy Feed"
+    client: "trading_economics"
+    type: "macro"
+    enabled: true
+    indicators:
+      - name: "Cash Rate"
+        series: "AUSTRALIA|INTEREST RATE"
+      - name: "CPI (YoY)"
+        series: "AUSTRALIA|INFLATION RATE"
+      - name: "Unemployment"
+        series: "AUSTRALIA|UNEMPLOYMENT RATE"
+      - name: "GDP Growth"
+        series: "AUSTRALIA|GDP GROWTH RATE"
+
+  # ─────────────────────────────
+  # "META" CONTENT SECTIONS
+  # (LLM / INTERNAL CONTENT)
+  # ─────────────────────────────
+
+  - id: thought_leadership
+    title: "Thought Leadership - Today's Lesson"
+    type: "internal_lesson"
+    enabled: true
+    source: "db.lessons"         # your own table / JSON file
+    strategy: "rotate_daily"     # or "random_no_repeat"
+
+  - id: graphic_of_the_day
+    title: "Graphic of the Day"
+    type: "internal_chart"
+    enabled: true
+    data_source: "crypto_market_summary"  # or any other section id
+    chart_type: "timeseries"              # or "treemap", etc.
+
+  - id: did_you_know_fact
+    title: "Did You Know?"
+    type: "internal_fact"
+    enabled: true
+    source: "db.facts"
+    strategy: "random"
+
+  - id: quote_of_the_day
+    title: "Quote of the Day"
+    type: "internal_quote"
+    enabled: true
+    source: "db.quotes"
+    strategy: "rotate_daily"

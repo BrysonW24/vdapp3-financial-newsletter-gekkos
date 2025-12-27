@@ -1,0 +1,38 @@
+{
+  "name": "newsletter-daily",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AI-powered daily newsletter platform",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build --filter=@newsletter/web",
+    "build:all": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "db:generate": "pnpm --filter=@newsletter/database db:generate",
+    "db:push": "pnpm --filter=@newsletter/database db:push",
+    "db:migrate": "pnpm --filter=@newsletter/database db:migrate",
+    "db:studio": "pnpm --filter=@newsletter/database db:studio",
+    "db:seed": "pnpm --filter=@newsletter/database db:seed",
+    "db:setup": "pnpm db:generate && pnpm db:push && pnpm db:seed"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@8.15.0",
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "prettier": "^3.2.4",
+    "turbo": "^1.12.4",
+    "typescript": "^5.3.3",
+    "next": "^14.1.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}

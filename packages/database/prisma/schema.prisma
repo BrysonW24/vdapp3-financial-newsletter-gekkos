@@ -1,0 +1,269 @@
+// Prisma schema for Gekkos Newsletter
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Newsletter edition (one per day)
+model Newsletter {
+  id          String   @id @default(cuid())
+  date        DateTime @unique
+  published   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Sections
+  tradingData Json?    // Market indices, stocks, movers
+  propertyData Json?   // Property news and articles
+  stocksData  Json?    // Stock market news
+  cryptoData  Json?    // Cryptocurrency data
+  economyData Json?    // Economic indicators
+  technologyData Json? // Tech news
+  knowledgeData Json?  // Educational content
+  entertainmentData Json? // Weekend entertainment
+  graphicData Json?    // Graphic of the day
+  quoteData   Json?    // Quote of the day
+
+  @@map("newsletters")
+}
+
+// News articles
+model Article {
+  id          String   @id @default(cuid())
+  title       String
+  summary     String?  @db.Text
+  url         String
+  source      String
+  category    String   // 'property', 'stocks', 'crypto', 'economy', 'technology'
+  imageUrl    String?
+  publishedAt DateTime
+  createdAt   DateTime @default(now())
+
+  @@index([category, publishedAt])
+  @@map("articles")
+}
+
+// Market data cache (to avoid excessive API calls)
+model MarketData {
+  id          String   @id @default(cuid())
+  symbol      String   @unique
+  name        String
+  price       Float
+  change      Float
+  changePercent Float
+  high        Float?
+  low         Float?
+  volume      BigInt?
+  marketCap   BigInt?
+  lastUpdated DateTime @default(now())
+
+  @@map("market_data")
+}
+
+// Cryptocurrency data cache
+model CryptoData {
+  id              String   @id @default(cuid())
+  symbol          String   @unique
+  name            String
+  price           Float
+  change24h       Float
+  changePercent24h Float
+  marketCap       BigInt?
+  volume24h       BigInt?
+  high24h         Float?
+  low24h          Float?
+  lastUpdated     DateTime @default(now())
+
+  @@map("crypto_data")
+}
+
+// Economic indicators
+model EconomicIndicator {
+  id          String   @id @default(cuid())
+  name        String   @unique // 'cash_rate', 'cpi', 'unemployment', 'gdp'
+  value       String
+  previousValue String?
+  changeDescription String?
+  lastUpdated DateTime @default(now())
+
+  @@map("economic_indicators")
+}
+
+// Quotes of the day
+model Quote {
+  id          String   @id @default(cuid())
+  text        String   @db.Text
+  author      String
+  title       String?  // Author's title
+  context     String?  @db.Text
+  category    String   // 'investing', 'business', 'general'
+  used        Boolean  @default(false)
+  usedAt      DateTime?
+  createdAt   DateTime @default(now())
+
+  @@map("quotes")
+}
+
+// Graphics/visualizations
+model Graphic {
+  id          String   @id @default(cuid())
+  title       String
+  subtitle    String?
+  description String   @db.Text
+  category    String   // 'finance', 'markets', 'education', 'general'
+  imageUrl    String?
+  dataJson    Json?    // For dynamic charts
+  source      String?
+  used        Boolean  @default(false)
+  usedAt      DateTime?
+  createdAt   DateTime @default(now())
+
+  @@map("graphics")
+}
+
+// ============================================
+// AUTHENTICATION MODELS
+// ============================================
+
+// User accounts
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  emailVerified DateTime?
+  name          String?
+  password      String?   // bcrypt hashed - only for credentials auth
+  image         String?
+
+  // Relations
+  accounts      Account[]
+  sessions      Session[]
+  portfolios    Portfolio[]
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([email])
+  @@map("users")
+}
+
+// OAuth accounts linked to user
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  user               User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  type               String  // 'oauth' | 'email' | 'credentials'
+  provider           String  // 'google' | 'github' | 'email'
+  providerAccountId  String
+
+  refresh_token      String?  @db.Text
+  access_token       String?  @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.Text
+  session_state      String?
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+  @@map("accounts")
+}
+
+// NextAuth session tokens
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expires      DateTime
+
+  @@index([userId])
+  @@map("sessions")
+}
+
+// Email verification tokens
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// ============================================
+// PORTFOLIO MODELS (Updated with userId)
+// ============================================
+
+// User portfolios for personalized news
+model Portfolio {
+  id          String   @id @default(cuid())
+  userId      String   // Foreign key to user
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name        String   // e.g., "My Investments", "Trading Account"
+  type        String   // 'stocks', 'crypto', 'property', 'mixed'
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Holdings in this portfolio
+  holdings    Holding[]
+  newsAlerts  NewsAlert[]
+
+  @@index([userId])
+  @@map("portfolios")
+}
+
+// Individual holdings in a portfolio
+model Holding {
+  id          String   @id @default(cuid())
+  portfolioId String
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  symbol      String   // e.g., 'ASX:CBA', 'BTC', 'PROPERTY:Sydney-CBD'
+  name        String   // e.g., 'Commonwealth Bank', 'Bitcoin', 'Sydney CBD Office'
+  type        String   // 'stock', 'crypto', 'property', 'etf', 'fund'
+  quantity    Float
+  buyPrice    Float?
+  currentPrice Float?
+  sector      String?  // e.g., 'Banking', 'Technology', 'Energy'
+  keywords    String[] // Custom keywords for news search
+
+  purchasedAt DateTime?
+  addedAt     DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([portfolioId])
+  @@index([symbol])
+  @@map("holdings")
+}
+
+// News alerts for portfolio holdings
+model NewsAlert {
+  id          String   @id @default(cuid())
+  portfolioId String
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  title       String
+  summary     String?  @db.Text
+  url         String
+  source      String
+  relevantSymbols String[] // Which holdings this relates to
+
+  matchedKeywords String[] // Which keywords triggered this alert
+  relevanceScore Float   // 0-1, how relevant to the portfolio
+
+  publishedAt DateTime
+  fetchedAt   DateTime @default(now())
+  read        Boolean  @default(false)
+  readAt      DateTime?
+
+  @@index([portfolioId, publishedAt])
+  @@index([read])
+  @@map("news_alerts")
+}

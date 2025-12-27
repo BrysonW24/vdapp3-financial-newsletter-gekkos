@@ -1,0 +1,12 @@
+apps/worker
+packages/worker
+.git
+.github
+docs
+tests
+scripts
+*.md
+!README.md
+node_modules
+.turbo
+dist

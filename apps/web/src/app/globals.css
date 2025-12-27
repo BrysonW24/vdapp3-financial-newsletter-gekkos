@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-inter: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-outfit: 'Outfit', system-ui, sans-serif;
+    --font-jetbrains: 'JetBrains Mono', monospace;
+  }
+
+  * {
+    @apply border-slate-200;
+  }
+
+  body {
+    @apply bg-gradient-to-br from-slate-50 to-slate-100 text-slate-900 antialiased;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-100;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-400 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-500;
+  }
+}
+
+@layer components {
+  .section-card {
+    @apply bg-white rounded-xl shadow-sm border border-slate-200 p-6 hover:shadow-md transition-shadow duration-200;
+  }
+
+  .section-title {
+    @apply text-2xl font-bold text-slate-900 mb-4 flex items-center gap-3;
+  }
+
+  .article-link {
+    @apply text-blue-600 hover:text-blue-800 hover:underline transition-colors duration-150;
+  }
+
+  .market-data-card {
+    @apply bg-gradient-to-br from-slate-800 to-slate-900 text-white rounded-lg p-4 shadow-lg;
+  }
+
+  .stat-positive {
+    @apply text-financial-gain font-semibold;
+  }
+
+  .stat-negative {
+    @apply text-financial-loss font-semibold;
+  }
+
+  .btn-primary {
+    @apply bg-gecko-600 hover:bg-gecko-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 shadow-sm hover:shadow-md;
+  }
+
+  .btn-secondary {
+    @apply bg-slate-200 hover:bg-slate-300 text-slate-900 px-6 py-3 rounded-lg font-medium transition-colors duration-200;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
