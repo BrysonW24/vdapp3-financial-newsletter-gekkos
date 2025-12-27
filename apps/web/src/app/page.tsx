@@ -10,6 +10,7 @@ import PropertyFeed from '@/components/newsletter/sections/PropertyFeed'
 import StocksFeed from '@/components/newsletter/sections/StocksFeed'
 import CryptoFeed from '@/components/newsletter/sections/CryptoFeed'
 import EconomyFeed from '@/components/newsletter/sections/EconomyFeed'
+import GlobalEconomyFeed from '@/components/newsletter/sections/GlobalEconomyFeed'
 import TechnologyFeed from '@/components/newsletter/sections/TechnologyFeed'
 import KnowledgeFeed from '@/components/newsletter/sections/KnowledgeFeed'
 import EntertainmentFeed from '@/components/newsletter/sections/EntertainmentFeed'
@@ -34,13 +35,14 @@ export default function Home() {
   const isFriday = today.getDay() === 5
 
   const sections = [
+    { id: 'global-economy', title: 'Global Economy', icon: '🌍' },
+    { id: 'economy', title: 'Australia Economy', icon: '🇦🇺' },
     { id: 'trading', title: 'Trading Feed', icon: '📈' },
     { id: 'property', title: 'Property Feed', icon: '🏠' },
     { id: 'stocks', title: 'Stocks Feed', icon: '💹' },
     { id: 'crypto', title: 'Crypto Feed', icon: '₿' },
     { id: 'ipo', title: 'IPO Feed', icon: '🚀' },
     { id: 'earnings', title: 'Earnings Feed', icon: '💰' },
-    { id: 'economy', title: 'Economy Feed', icon: '🏦' },
     { id: 'global-politics', title: 'Global Politics', icon: '🌍' },
     { id: 'technology', title: 'Technology Feed', icon: '💻' },
     { id: 'knowledge', title: 'Knowledge Feed', icon: '📚' },
@@ -70,6 +72,14 @@ export default function Home() {
             <PortfolioDashboard isEnabled={portfolioEnabled} />
           )}
 
+          <section id="global-economy">
+            <GlobalEconomyFeed />
+          </section>
+
+          <section id="economy">
+            <EconomyFeed />
+          </section>
+
           <section id="trading">
             <TradingFeed />
           </section>
@@ -92,10 +102,6 @@ export default function Home() {
 
           <section id="earnings">
             <EarningsFeed />
-          </section>
-
-          <section id="economy">
-            <EconomyFeed />
           </section>
 
           <section id="global-politics">
