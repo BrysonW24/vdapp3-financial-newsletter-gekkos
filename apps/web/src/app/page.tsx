@@ -45,11 +45,11 @@ export default function Home() {
     { id: 'ipo', title: 'IPO Feed', icon: '🚀' },
     { id: 'earnings', title: 'Earnings Feed', icon: '💰' },
     { id: 'technology', title: 'Technology Feed', icon: '💻' },
-    { id: 'venture-capital', title: 'Venture Capital', icon: '💼' },
-    ...(isFriday ? [{ id: 'entertainment', title: 'Entertainment Feed', icon: '🎬' }] : []),
-    ...(portfolioEnabled ? [{ id: 'portfolio', title: 'My Portfolio News', icon: '💼' }] : []),
-    { id: 'graphic', title: 'Graphic of the Day', icon: '📊' },
     { id: 'knowledge', title: 'Knowledge Feed', icon: '📚' },
+    { id: 'venture-capital', title: 'Venture Capital', icon: '💼' },
+    { id: 'graphic', title: 'Graphic of the Day', icon: '📊' },
+    ...(portfolioEnabled ? [{ id: 'portfolio', title: 'My Portfolio News', icon: '💼' }] : []),
+    ...(isFriday ? [{ id: 'entertainment', title: 'Entertainment Feed', icon: '🎬' }] : []),
   ]
 
   return (
@@ -114,8 +114,16 @@ export default function Home() {
             <TechnologyFeed />
           </section>
 
+          <section id="knowledge">
+            <KnowledgeFeed />
+          </section>
+
           <section id="venture-capital">
             <VentureCapitalDashboard />
+          </section>
+
+          <section id="graphic">
+            <GraphicOfTheDay />
           </section>
 
           {isFriday && (
@@ -123,14 +131,6 @@ export default function Home() {
               <EntertainmentFeed />
             </section>
           )}
-
-          <section id="graphic">
-            <GraphicOfTheDay />
-          </section>
-
-          <section id="knowledge">
-            <KnowledgeFeed />
-          </section>
 
           <section id="feedback" className="section-card">
             <h2 className="text-3xl font-bold text-slate-900 mb-4 flex items-center gap-2">
