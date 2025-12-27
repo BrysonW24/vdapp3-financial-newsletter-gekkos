@@ -26,11 +26,6 @@ export default function EconomyFeed() {
             <span className="text-xs font-normal text-emerald-700">🇦🇺 Australian economic indicators & news</span>
           </div>
         </div>
-        {!error && articles.length > 0 && (
-          <span className="ml-auto text-xs font-normal text-emerald-600 bg-emerald-100 px-3 py-1 rounded-full">
-            LIVE NEWS ✨
-          </span>
-        )}
       </h2>
 
       {/* Economic Indicators Dashboard */}
