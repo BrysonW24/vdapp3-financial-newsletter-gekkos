@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { useState } from 'react'
 
 export default function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
   const today = new Date()
   const formattedDate = today.toLocaleDateString('en-AU', {
     weekday: 'long',
@@ -38,45 +40,105 @@ export default function Header() {
             </div>
           </div>
 
-          {/* Navigation */}
-          <nav className="flex items-center gap-3">
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center gap-3">
             <Link
               href="/"
-              className="px-3 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors duration-200 backdrop-blur-sm flex items-center gap-2 font-medium text-sm"
+              className="px-3 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition-colors duration-200 backdrop-blur-sm flex items-center gap-2 font-medium text-sm shadow-md"
             >
               <span>📊</span>
               Dashboard
             </Link>
             <Link
               href="/news"
-              className="px-3 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors duration-200 backdrop-blur-sm font-medium flex items-center gap-2 text-sm"
+              className="px-3 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition-colors duration-200 backdrop-blur-sm font-medium flex items-center gap-2 text-sm shadow-md"
             >
               <span>📰</span>
               News Intelligence
             </Link>
             <Link
               href="/portfolio"
-              className="px-3 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors duration-200 backdrop-blur-sm flex items-center gap-2 text-sm"
+              className="px-3 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition-colors duration-200 backdrop-blur-sm flex items-center gap-2 text-sm shadow-md"
             >
               <span>💼</span>
               Track Your Portfolio
             </Link>
             <Link
-              href="/news/search"
-              className="px-3 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors duration-200 backdrop-blur-sm flex items-center gap-2 text-sm"
-            >
-              <span>🔍</span>
-              Search
-            </Link>
-            <Link
               href="/economic-charts"
-              className="px-3 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors duration-200 backdrop-blur-sm flex items-center gap-2 text-sm"
+              className="px-3 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition-colors duration-200 backdrop-blur-sm flex items-center gap-2 text-sm shadow-md"
             >
               <span>📈</span>
               Economic Charts
             </Link>
+            <Link
+              href="/news/search"
+              className="px-3 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition-colors duration-200 backdrop-blur-sm flex items-center gap-2 text-sm shadow-md"
+            >
+              <span>🔍</span>
+              Search
+            </Link>
           </nav>
+
+          {/* Mobile Hamburger Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden p-2 bg-green-600 hover:bg-green-700 rounded-lg transition-colors duration-200 shadow-md"
+            aria-label="Toggle menu"
+          >
+            <div className="w-6 h-5 flex flex-col justify-between">
+              <span className={`w-full h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+              <span className={`w-full h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? 'opacity-0' : ''}`}></span>
+              <span className={`w-full h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+            </div>
+          </button>
         </div>
+
+        {/* Mobile Navigation Menu */}
+        {mobileMenuOpen && (
+          <nav className="lg:hidden mt-6 flex flex-col gap-2 bg-white/10 backdrop-blur-sm rounded-lg p-4">
+            <Link
+              href="/"
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-4 py-3 bg-green-600 hover:bg-green-700 rounded-lg transition-colors duration-200 flex items-center gap-3 font-medium text-sm shadow-md"
+            >
+              <span>📊</span>
+              Dashboard
+            </Link>
+            <Link
+              href="/news"
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-4 py-3 bg-green-600 hover:bg-green-700 rounded-lg transition-colors duration-200 flex items-center gap-3 font-medium text-sm shadow-md"
+            >
+              <span>📰</span>
+              News Intelligence
+            </Link>
+            <Link
+              href="/portfolio"
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-4 py-3 bg-green-600 hover:bg-green-700 rounded-lg transition-colors duration-200 flex items-center gap-3 font-medium text-sm shadow-md"
+            >
+              <span>💼</span>
+              Track Your Portfolio
+            </Link>
+            <Link
+              href="/economic-charts"
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-4 py-3 bg-green-600 hover:bg-green-700 rounded-lg transition-colors duration-200 flex items-center gap-3 font-medium text-sm shadow-md"
+            >
+              <span>📈</span>
+              Economic Charts
+            </Link>
+            <Link
+              href="/news/search"
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-4 py-3 bg-green-600 hover:bg-green-700 rounded-lg transition-colors duration-200 flex items-center gap-3 font-medium text-sm shadow-md"
+            >
+              <span>🔍</span>
+              Search
+            </Link>
+          </nav>
+        )}
+
 
         {/* Date and Edition Info */}
         <div className="mt-6 flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-white/20">

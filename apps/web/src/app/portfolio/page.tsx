@@ -207,7 +207,7 @@ export default function PortfolioPage() {
               }
               value={newAsset.symbol}
               onChange={(e) => setNewAsset({ ...newAsset, symbol: e.target.value })}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 min-h-[48px] text-base"
             />
             <input
               type="text"
@@ -218,12 +218,12 @@ export default function PortfolioPage() {
               }
               value={newAsset.name}
               onChange={(e) => setNewAsset({ ...newAsset, name: e.target.value })}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 min-h-[48px] text-base"
             />
             <select
               value={newAsset.type}
               onChange={(e) => setNewAsset({ ...newAsset, type: e.target.value as any })}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 min-h-[48px] text-base"
             >
               <option value="stock">Stock</option>
               <option value="crypto">Crypto</option>
@@ -234,18 +234,18 @@ export default function PortfolioPage() {
               placeholder={newAsset.type === 'property' ? '# Properties' : 'Quantity'}
               value={newAsset.quantity || ''}
               onChange={(e) => setNewAsset({ ...newAsset, quantity: parseFloat(e.target.value) || 0 })}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 min-h-[48px] text-base"
             />
             <input
               type="number"
               placeholder="Current Price (AUD)"
               value={newAsset.currentPrice || ''}
               onChange={(e) => setNewAsset({ ...newAsset, currentPrice: parseFloat(e.target.value) || 0 })}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 min-h-[48px] text-base"
             />
             <button
               onClick={addAsset}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+              className="px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium min-h-[48px]"
             >
               Add {newAsset.type}
             </button>
@@ -270,53 +270,106 @@ export default function PortfolioPage() {
               <p>No assets tracked yet. Add your first asset above!</p>
             </div>
           ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Type</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Symbol</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Quantity</th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Current Price</th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Value</th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Gain/Loss</th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Return</th>
-                    <th className="px-6 py-3"></th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  {assets.map((asset) => (
-                    <tr key={asset.symbol} className="hover:bg-gray-50">
-                      <td className="px-6 py-4">
-                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getTypeColor(asset.type)}`}>
-                          {getTypeIcon(asset.type)} {asset.type}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 font-medium text-gray-900">{asset.symbol}</td>
-                      <td className="px-6 py-4 text-gray-600">{asset.name}</td>
-                      <td className="px-6 py-4 text-right text-gray-900">{asset.quantity}</td>
-                      <td className="px-6 py-4 text-right text-gray-900">{formatCurrency(asset.currentPrice)}</td>
-                      <td className="px-6 py-4 text-right font-medium text-gray-900">{formatCurrency(calculateValue(asset))}</td>
-                      <td className={`px-6 py-4 text-right font-medium ${calculateGainLoss(asset) >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                        {formatCurrency(calculateGainLoss(asset))}
-                      </td>
-                      <td className={`px-6 py-4 text-right font-medium ${calculateGainLossPercent(asset) >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                        {calculateGainLossPercent(asset).toFixed(2)}%
-                      </td>
-                      <td className="px-6 py-4 text-right">
-                        <button
-                          onClick={() => removeAsset(asset.symbol)}
-                          className="text-red-600 hover:text-red-800 font-medium text-sm"
-                        >
-                          Remove
-                        </button>
-                      </td>
+            <>
+              {/* Desktop Table View */}
+              <div className="hidden md:block overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Type</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Symbol</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Quantity</th>
+                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Current Price</th>
+                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Value</th>
+                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Gain/Loss</th>
+                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Return</th>
+                      <th className="px-6 py-3"></th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200">
+                    {assets.map((asset) => (
+                      <tr key={asset.symbol} className="hover:bg-gray-50">
+                        <td className="px-6 py-4">
+                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getTypeColor(asset.type)}`}>
+                            {getTypeIcon(asset.type)} {asset.type}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 font-medium text-gray-900">{asset.symbol}</td>
+                        <td className="px-6 py-4 text-gray-600">{asset.name}</td>
+                        <td className="px-6 py-4 text-right text-gray-900">{asset.quantity}</td>
+                        <td className="px-6 py-4 text-right text-gray-900">{formatCurrency(asset.currentPrice)}</td>
+                        <td className="px-6 py-4 text-right font-medium text-gray-900">{formatCurrency(calculateValue(asset))}</td>
+                        <td className={`px-6 py-4 text-right font-medium ${calculateGainLoss(asset) >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                          {formatCurrency(calculateGainLoss(asset))}
+                        </td>
+                        <td className={`px-6 py-4 text-right font-medium ${calculateGainLossPercent(asset) >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                          {calculateGainLossPercent(asset).toFixed(2)}%
+                        </td>
+                        <td className="px-6 py-4 text-right">
+                          <button
+                            onClick={() => removeAsset(asset.symbol)}
+                            className="text-red-600 hover:text-red-800 font-medium text-sm"
+                          >
+                            Remove
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Mobile Card View */}
+              <div className="md:hidden space-y-4 p-4">
+                {assets.map((asset) => (
+                  <div key={asset.symbol} className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                    <div className="flex justify-between items-start mb-3">
+                      <div className="flex-1">
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium mb-2 ${getTypeColor(asset.type)}`}>
+                          {getTypeIcon(asset.type)} {asset.type.toUpperCase()}
+                        </span>
+                        <h3 className="font-bold text-lg text-gray-900">{asset.symbol}</h3>
+                        <p className="text-sm text-gray-600">{asset.name}</p>
+                      </div>
+                      <button
+                        onClick={() => removeAsset(asset.symbol)}
+                        className="px-3 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors font-medium text-sm min-h-[44px]"
+                      >
+                        Remove
+                      </button>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3 text-sm border-t border-gray-100 pt-3">
+                      <div>
+                        <span className="text-gray-500 block mb-1">Quantity</span>
+                        <p className="font-semibold text-gray-900">{asset.quantity}</p>
+                      </div>
+                      <div>
+                        <span className="text-gray-500 block mb-1">Current Price</span>
+                        <p className="font-semibold text-gray-900">{formatCurrency(asset.currentPrice)}</p>
+                      </div>
+                      <div>
+                        <span className="text-gray-500 block mb-1">Total Value</span>
+                        <p className="font-semibold text-gray-900">{formatCurrency(calculateValue(asset))}</p>
+                      </div>
+                      <div>
+                        <span className="text-gray-500 block mb-1">Return</span>
+                        <p className={`font-semibold ${calculateGainLossPercent(asset) >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                          {calculateGainLossPercent(asset).toFixed(2)}%
+                        </p>
+                      </div>
+                      <div className="col-span-2">
+                        <span className="text-gray-500 block mb-1">Gain/Loss</span>
+                        <p className={`font-semibold ${calculateGainLoss(asset) >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                          {formatCurrency(calculateGainLoss(asset))}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
           )}
         </div>
 

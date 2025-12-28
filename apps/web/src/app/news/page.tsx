@@ -142,14 +142,14 @@ function NewsIntelligenceContent() {
       {/* Header */}
       <div className="bg-gradient-to-r from-green-600 to-emerald-700 text-white border-b border-green-700 sticky top-0 z-10 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-4">
-              <Link href="/" className="text-2xl font-bold hover:text-green-100 transition-colors">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between py-3 sm:h-16 gap-3">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:space-x-4 w-full sm:w-auto">
+              <Link href="/" className="text-xl sm:text-2xl font-bold hover:text-green-100 transition-colors">
                 🦎 Gekkos
               </Link>
-              <span className="text-green-300">|</span>
+              <span className="hidden sm:inline text-green-300">|</span>
               <div className="flex flex-col">
-                <h1 className="text-xl font-semibold">
+                <h1 className="text-lg sm:text-xl font-semibold">
                   {getCategoryIcon(selectedCategory)} News Intelligence
                 </h1>
                 <p className="text-xs text-green-100">
@@ -157,16 +157,16 @@ function NewsIntelligenceContent() {
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
               <Link
                 href="/"
-                className="px-4 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-colors border border-white/20"
+                className="px-4 py-3 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-colors border border-white/20 text-sm sm:text-base min-h-[44px] flex items-center"
               >
                 ← Home
               </Link>
               <Link
                 href="/news/search"
-                className="px-4 py-2 bg-white text-green-700 rounded-lg hover:bg-green-50 transition-colors font-medium"
+                className="px-4 py-3 bg-white text-green-700 rounded-lg hover:bg-green-50 transition-colors font-medium text-sm sm:text-base min-h-[44px] flex items-center"
               >
                 Advanced Search
               </Link>
@@ -189,7 +189,7 @@ function NewsIntelligenceContent() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search articles by keyword..."
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent min-h-[48px] text-base"
               />
             </div>
 
@@ -203,7 +203,7 @@ function NewsIntelligenceContent() {
                 <select
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent min-h-[48px] text-base"
                 >
                   {categories.map((cat) => (
                     <option key={cat} value={cat}>
@@ -221,7 +221,7 @@ function NewsIntelligenceContent() {
                 <select
                   value={selectedSource}
                   onChange={(e) => setSelectedSource(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent min-h-[48px] text-base"
                 >
                   {sources.map((source) => (
                     <option key={source} value={source}>

@@ -6,6 +6,13 @@ Stan Druckenmiller, one of history's most successful macro investors (30+ year t
 
 This document details the methodology, breakdown, and implementation strategy for the Gekkos Economic Charts feature.
 
+**Sources:**
+- [Stanley Druckenmiller on Technical Analysis](https://asymmetryobservations.com/2018/10/03/stanley-druckenmiller-on-his-use-of-technical-analysis-and-instinct/)
+- [CMG Private Wealth Group - Global Macro Game Theory](https://www.cmgprivatewealth.com/omr/dec262025)
+- [Druckenmiller Trading Strategy - MarketBulls](https://market-bulls.com/stanley-druckenmiller-trading-strategy/)
+- [Druckenmiller Investment Philosophy - Duke Technology Blog](https://sites.duke.edu/tech/2024/11/15/stan-druckenmiller/)
+- [Macroeconomic Insights - Moomoo](https://www.moomoo.com/community/feed/stanley-druckenmiller-interview-macroeconomic-insights-from-an-investment-legend-moomoo-113446702678022)
+
 ---
 
 ## The 272 Chart System
