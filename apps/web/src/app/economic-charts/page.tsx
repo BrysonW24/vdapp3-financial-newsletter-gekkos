@@ -181,7 +181,7 @@ export default function EconomicChartsPage() {
                 <span>🇦🇺</span>
                 <span>Australian Equities</span>
               </h4>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* ASX 200 */}
                 <div className="border border-gray-200 rounded-lg overflow-hidden">
                   <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
@@ -215,6 +215,74 @@ export default function EconomicChartsPage() {
                     />
                   </div>
                 </div>
+
+                {/* BHP Group */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">BHP</h5>
+                    <p className="text-xs text-gray-600">BHP Group</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=ASX%3ABHP&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
+
+                {/* CSL Limited */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">CSL</h5>
+                    <p className="text-xs text-gray-600">CSL Limited</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=ASX%3ACSL&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
+
+                {/* NAB */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">NAB</h5>
+                    <p className="text-xs text-gray-600">National Australia Bank</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=ASX%3ANAB&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
+
+                {/* Westpac */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">WBC</h5>
+                    <p className="text-xs text-gray-600">Westpac Banking</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=ASX%3AWBC&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -226,7 +294,7 @@ export default function EconomicChartsPage() {
                 <span>🌍</span>
                 <span>Global Equities</span>
               </h4>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* S&P 500 */}
                 <div className="border border-gray-200 rounded-lg overflow-hidden">
                   <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
@@ -260,6 +328,74 @@ export default function EconomicChartsPage() {
                     />
                   </div>
                 </div>
+
+                {/* Dow Jones */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">Dow Jones</h5>
+                    <p className="text-xs text-gray-600">US Industrial Average</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=DJ%3ADJI&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
+
+                {/* FTSE 100 */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">FTSE 100</h5>
+                    <p className="text-xs text-gray-600">UK Market Index</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=TVC%3AUKG&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
+
+                {/* Nikkei 225 */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">Nikkei 225</h5>
+                    <p className="text-xs text-gray-600">Japan Market Index</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=TVC%3ANI225&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
+
+                {/* Hang Seng */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">Hang Seng</h5>
+                    <p className="text-xs text-gray-600">Hong Kong Index</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=HSI%3AHSI&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -271,7 +407,7 @@ export default function EconomicChartsPage() {
                 <span>📊</span>
                 <span>Commodities</span>
               </h4>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Gold */}
                 <div className="border border-gray-200 rounded-lg overflow-hidden">
                   <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
@@ -281,6 +417,23 @@ export default function EconomicChartsPage() {
                   <div className="h-96">
                     <iframe
                       src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=OANDA%3AXAUUSD&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
+
+                {/* Silver */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">Silver</h5>
+                    <p className="text-xs text-gray-600">XAGUSD</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=OANDA%3AXAGUSD&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
                       className="w-full h-full"
                       frameBorder="0"
                       allowTransparency={true}
@@ -305,6 +458,57 @@ export default function EconomicChartsPage() {
                     />
                   </div>
                 </div>
+
+                {/* Natural Gas */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">Natural Gas</h5>
+                    <p className="text-xs text-gray-600">Henry Hub</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=NYMEX%3ANG1!&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
+
+                {/* Copper */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">Copper</h5>
+                    <p className="text-xs text-gray-600">Base Metal</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=COMEX%3AHG1!&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
+
+                {/* Iron Ore */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">Iron Ore</h5>
+                    <p className="text-xs text-gray-600">Australian Export</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=SGX%3AIRO&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -316,7 +520,7 @@ export default function EconomicChartsPage() {
                 <span>💱</span>
                 <span>Currencies</span>
               </h4>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* AUD/USD */}
                 <div className="border border-gray-200 rounded-lg overflow-hidden">
                   <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
@@ -350,6 +554,74 @@ export default function EconomicChartsPage() {
                     />
                   </div>
                 </div>
+
+                {/* GBP/USD */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">GBP/USD</h5>
+                    <p className="text-xs text-gray-600">British Pound</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=FX%3AGBPUSD&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
+
+                {/* USD/JPY */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">USD/JPY</h5>
+                    <p className="text-xs text-gray-600">Japanese Yen</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=FX%3AUSDJPY&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
+
+                {/* DXY - Dollar Index */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">DXY</h5>
+                    <p className="text-xs text-gray-600">US Dollar Index</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=TVC%3ADXY&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
+
+                {/* USD/CNY */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">USD/CNY</h5>
+                    <p className="text-xs text-gray-600">Chinese Yuan</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=FX%3AUSDCNY&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -361,7 +633,24 @@ export default function EconomicChartsPage() {
                 <span>📈</span>
                 <span>Fixed Income</span>
               </h4>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {/* US 2Y Treasury */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">US 2Y Treasury</h5>
+                    <p className="text-xs text-gray-600">Short-Term Yield</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=TVC%3AUS02Y&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
+
                 {/* US 10Y Treasury */}
                 <div className="border border-gray-200 rounded-lg overflow-hidden">
                   <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
@@ -406,7 +695,7 @@ export default function EconomicChartsPage() {
                 <span>⚡</span>
                 <span>Volatility & Market Internals</span>
               </h4>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* VIX */}
                 <div className="border border-gray-200 rounded-lg overflow-hidden">
                   <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
@@ -416,6 +705,40 @@ export default function EconomicChartsPage() {
                   <div className="h-96">
                     <iframe
                       src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=TVC%3AVIX&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
+
+                {/* Bitcoin */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">Bitcoin</h5>
+                    <p className="text-xs text-gray-600">BTC/USD</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=BITSTAMP%3ABTCUSD&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
+
+                {/* Ethereum */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">Ethereum</h5>
+                    <p className="text-xs text-gray-600">ETH/USD</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=BITSTAMP%3AETHUSD&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
                       className="w-full h-full"
                       frameBorder="0"
                       allowTransparency={true}
