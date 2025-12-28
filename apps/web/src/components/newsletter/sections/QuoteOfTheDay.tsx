@@ -43,7 +43,7 @@ export default function QuoteOfTheDay() {
           text: 'Unable to load today\'s quote at this time.',
           author: 'System',
           title: 'Please try again later',
-          context: 'Our quote service is temporarily unavailable. We apologize for the inconvenience.',
+          context: 'Our quote service is temporarily unavailable. We apologise for the inconvenience.',
           category: 'Service Unavailable',
         });
       }

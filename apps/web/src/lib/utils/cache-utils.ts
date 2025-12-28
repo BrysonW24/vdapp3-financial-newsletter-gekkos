@@ -1,7 +1,7 @@
 /**
  * Daily Caching Utilities
  *
- * Provides a standardized caching strategy for all dynamic content routes.
+ * Provides a standardised caching strategy for all dynamic content routes.
  * Uses in-memory globalThis storage with midnight expiration for single-instance deployments.
  *
  * For multi-instance deployments, consider implementing Redis-backed caching.

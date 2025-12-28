@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Analyze the news articles using free Hugging Face LLM
+    // Analyse the news articles using free Hugging Face LLM
     const analysis = await analyzeMarketNewsWithAI(articles)
 
     return NextResponse.json({

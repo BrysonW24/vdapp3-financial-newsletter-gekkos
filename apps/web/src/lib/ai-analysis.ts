@@ -14,9 +14,9 @@ export async function analyzeMarketNewsWithAI(
       })
       .join('\n\n---\n\n');
 
-    const prompt = `You are analyzing financial market news for Australian investors. Please use Australian English spelling throughout (analyze, optimize, organize, etc.).
+    const prompt = `You are analysing financial market news for Australian investors. Please use Australian English spelling throughout (analyse, optimise, organise, etc.).
 
-Analyze the following ${articles.length} financial news article${articles.length > 1 ? 's' : ''}:
+Analyse the following ${articles.length} financial news article${articles.length > 1 ? 's' : ''}:
 
 ${combinedContent}
 
@@ -33,7 +33,7 @@ Provide a comprehensive Market Intelligence Brief in JSON format with these exac
     }
   ],
   "tradingOpportunities": [
-    "Bullet point summarizing a potential trading or investment opportunity (3-5 total)"
+    "Bullet point summarising a potential trading or investment opportunity (3-5 total)"
   ],
   "riskFactors": [
     "Key risk factor investors should watch (3-5 bullets)"
@@ -152,7 +152,7 @@ function generateFallbackAnalysis(
         : idx === 1
         ? 'Currency fluctuations in AUD/USD exchange rate impact international investment returns and export-focused Australian companies.'
         : idx === 2
-        ? 'Property market dynamics across major Australian cities show varying growth patterns requiring localized investment strategies.'
+        ? 'Property market dynamics across major Australian cities show varying growth patterns requiring localised investment strategies.'
         : idx === 3
         ? 'Interest rate expectations influence bond yields, mortgage rates, and property valuations across Australian residential markets.'
         : idx === 4
@@ -228,7 +228,7 @@ export async function generatePortfolioInsights(
       .map(a => `${a.symbol} (${a.type}): ${a.quantity} units @ $${a.currentPrice}`)
       .join('\n');
 
-    const prompt = `Analyze this investment portfolio for an Australian investor:
+    const prompt = `Analyse this investment portfolio for an Australian investor:
 
 ${portfolioSummary}
 

@@ -17,7 +17,7 @@ interface NewsArticle {
   category: string
 }
 
-// Initialize RSS parser with custom fields for media content
+// Initialise RSS parser with custom fields for media content
 const rssParser = new Parser({
   customFields: {
     item: ['media:thumbnail', 'media:content', 'content:encoded'],

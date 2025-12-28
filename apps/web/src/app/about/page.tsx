@@ -95,7 +95,7 @@ export default function AboutPage() {
               'Deliver accurate, timely financial news and data every morning',
               'Present complex financial concepts in accessible, understandable ways',
               'Maintain editorial independence and objectivity',
-              'Respect your time with concise, well-organized content',
+              'Respect your time with concise, well-organised content',
               'Continuously improve based on community feedback',
             ].map((item, index) => (
               <li key={index} className="flex items-start gap-3">

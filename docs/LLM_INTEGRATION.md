@@ -410,7 +410,7 @@ const analysis = await analyzeMarketNewsWithAI(articles)
 Potential improvements to consider:
 
 1. **Caching** - Cache AI responses for repeated queries
-2. **Batch Processing** - Analyze multiple articles in parallel
+2. **Batch Processing** - Analyse multiple articles in parallel
 3. **Custom Fine-tuning** - Train on Australian financial data
 4. **Real-time Analysis** - Stream analysis as articles arrive
 5. **Sentiment Tracking** - Historical sentiment trends

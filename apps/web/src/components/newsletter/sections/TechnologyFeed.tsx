@@ -47,7 +47,7 @@ export default function TechnologyFeed() {
             },
             {
               title: 'Sustainable Tech: Breakthrough in Solid-State Battery Technology',
-              summary: 'Scientists develop new solid-state battery technology that could revolutionize electric vehicles with faster charging and longer range.',
+              summary: 'Scientists develop new solid-state battery technology that could revolutionise electric vehicles with faster charging and longer range.',
               source: 'IEEE Spectrum',
               url: '#',
               category: 'Energy Storage',

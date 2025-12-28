@@ -142,7 +142,7 @@ function scoreArticles(
     if (hoursOld < 1) relevanceScore += 0.1
     if (hoursOld < 6) relevanceScore += 0.05
 
-    // Normalize score to 0-1
+    // Normalise score to 0-1
     relevanceScore = Math.min(relevanceScore, 1)
 
     return {

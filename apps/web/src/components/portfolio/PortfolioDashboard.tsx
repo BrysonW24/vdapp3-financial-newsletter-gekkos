@@ -60,14 +60,14 @@ export default function PortfolioDashboard({ portfolioId = 'demo-1', isEnabled }
           <span>My Portfolio News</span>
         </h2>
         <p className="text-slate-600 text-sm mb-6">
-          Personalized news and updates for your investments
+          Personalised news and updates for your investments
         </p>
 
         {/* Loading State */}
         {loading && (
           <div className="flex items-center justify-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-4 border-gecko-200 border-t-gecko-500"></div>
-            <span className="ml-4 text-slate-600">Fetching personalized news...</span>
+            <span className="ml-4 text-slate-600">Fetching personalised news...</span>
           </div>
         )}
 
