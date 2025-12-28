@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import NewsletterLayout from '@/components/newsletter/NewsletterLayout'
 import Header from '@/components/newsletter/Header'
 import Footer from '@/components/newsletter/Footer'
@@ -21,14 +20,9 @@ import QuoteOfTheDay from '@/components/newsletter/sections/QuoteOfTheDay'
 import CommoditiesDashboard from '@/components/newsletter/sections/CommoditiesDashboard'
 import VentureCapitalDashboard from '@/components/newsletter/sections/VentureCapitalDashboard'
 import DruckenmillerCharts from '@/components/newsletter/sections/DruckenmillerCharts'
-import PortfolioInput from '@/components/portfolio/PortfolioInput'
-import PortfolioDashboard from '@/components/portfolio/PortfolioDashboard'
 import FeedbackForm from '@/components/feedback/FeedbackForm'
 
 export default function Home() {
-  // Portfolio state
-  const [portfolioEnabled, setPortfolioEnabled] = useState(false)
-
   // Get current day to determine if we show Entertainment Feed
   const today = new Date()
   const isFriday = today.getDay() === 5
@@ -48,7 +42,6 @@ export default function Home() {
     { id: 'knowledge', title: 'Knowledge Feed', icon: '📚' },
     { id: 'graphic', title: 'Graphic of the Day', icon: '📊' },
     { id: 'quote', title: 'Quote of the Day', icon: '💭' },
-    ...(portfolioEnabled ? [{ id: 'portfolio', title: 'My Portfolio News', icon: '💼' }] : []),
     ...(isFriday ? [{ id: 'entertainment', title: 'Entertainment Feed', icon: '🎬' }] : []),
   ]
 
@@ -59,16 +52,7 @@ export default function Home() {
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         <TableOfContents sections={sections} />
 
-        {/* Portfolio Input Section */}
-        <div className="mt-12 mb-12">
-          <PortfolioInput onTogglePortfolio={setPortfolioEnabled} />
-        </div>
-
         <div className="mt-12 space-y-12">
-          {/* Portfolio Dashboard (if enabled) */}
-          {portfolioEnabled && (
-            <PortfolioDashboard isEnabled={portfolioEnabled} />
-          )}
 
           <section id="global-economy">
             <GlobalEconomyFeed />

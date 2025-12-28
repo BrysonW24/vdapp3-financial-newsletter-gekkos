@@ -68,6 +68,13 @@ export default function Header() {
               <span>🔍</span>
               Search
             </Link>
+            <Link
+              href="/economic-charts"
+              className="px-3 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors duration-200 backdrop-blur-sm flex items-center gap-2 text-sm"
+            >
+              <span>📈</span>
+              Economic Charts
+            </Link>
           </nav>
         </div>
 
