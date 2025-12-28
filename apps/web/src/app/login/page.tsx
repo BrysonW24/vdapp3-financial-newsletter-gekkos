@@ -3,7 +3,6 @@
 import { useState, FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/stores/authStore'
-import apiClient from '@/lib/apiClient'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -19,17 +18,29 @@ export default function LoginPage() {
     setIsLoading(true)
 
     try {
-      const response = await apiClient.post('/api/auth/login', {
-        username,
-        password,
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username,
+          password,
+        }),
       })
 
-      const { accessToken, user } = response.data
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Invalid credentials')
+      }
+
+      const { accessToken, user } = data
 
       setAuth(user, accessToken)
       router.push('/')
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Invalid credentials')
+      setError(err.message || 'Invalid credentials')
     } finally {
       setIsLoading(false)
     }
@@ -105,7 +116,7 @@ export default function LoginPage() {
 
           <div className="text-center text-sm text-gray-600">
             <p>Demo credentials:</p>
-            <p className="font-mono text-xs mt-1">username: admin / password: password123</p>
+            <p className="font-mono text-xs mt-1">username: admin / password: admin123</p>
           </div>
         </form>
       </div>
