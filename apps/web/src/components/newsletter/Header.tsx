@@ -49,17 +49,17 @@ export default function Header() {
             </Link>
             <Link
               href="/news"
-              className="px-3 py-2 bg-gecko-500 hover:bg-gecko-600 rounded-lg transition-colors duration-200 backdrop-blur-sm font-medium shadow-md flex items-center gap-2 text-sm"
+              className="px-3 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors duration-200 backdrop-blur-sm font-medium flex items-center gap-2 text-sm"
             >
               <span>📰</span>
               News Intelligence
             </Link>
             <Link
-              href="/politics"
+              href="/portfolio"
               className="px-3 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors duration-200 backdrop-blur-sm flex items-center gap-2 text-sm"
             >
-              <span>🌍</span>
-              Global Politics
+              <span>💼</span>
+              Track Your Portfolio
             </Link>
             <Link
               href="/news/search"

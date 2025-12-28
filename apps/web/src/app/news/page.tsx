@@ -264,51 +264,67 @@ function NewsIntelligenceContent() {
 
         {/* Articles Grid */}
         {!loading && !error && (
-          <div className="space-y-4">
+          <div>
             {filteredArticles.length === 0 ? (
               <div className="bg-white rounded-lg shadow-sm p-12 text-center">
                 <p className="text-gray-600 text-lg">No articles found matching your criteria.</p>
               </div>
             ) : (
-              filteredArticles.map((article) => (
-                <div
-                  key={article.id}
-                  className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-6"
-                >
-                  <div className="flex items-start justify-between mb-3">
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${getCategoryColor(article.category)}`}>
-                      {article.category.toUpperCase()}
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      {formatDate(article.publishedAt)}
-                    </span>
-                  </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredArticles.map((article) => (
+                  <article
+                    key={article.id}
+                    className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col"
+                  >
+                    <div className="p-6 flex-1 flex flex-col">
+                      {/* Meta Info */}
+                      <div className="flex items-center gap-2 mb-3 flex-wrap">
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getCategoryColor(article.category)}`}>
+                          {article.category}
+                        </span>
+                      </div>
 
-                  <h2 className="text-xl font-semibold text-gray-900 mb-2 hover:text-green-600">
-                    <a href={article.sourceUrl} target="_blank" rel="noopener noreferrer">
-                      {article.title}
-                    </a>
-                  </h2>
+                      {/* Title */}
+                      <h2 className="text-xl font-bold text-gray-900 mb-3 line-clamp-3 hover:text-green-600 transition-colors">
+                        {article.title}
+                      </h2>
 
-                  <p className="text-gray-600 mb-4 line-clamp-3">
-                    {article.content}
-                  </p>
+                      {/* Content Preview */}
+                      <p className="text-gray-600 mb-4 line-clamp-4 flex-1">
+                        {article.content?.substring(0, 200)}...
+                      </p>
 
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-500">
-                      Source: {article.source}
-                    </span>
-                    <a
-                      href={article.sourceUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm text-green-600 hover:text-green-700 font-medium"
-                    >
-                      Read full article →
-                    </a>
-                  </div>
-                </div>
-              ))
+                      {/* Footer */}
+                      <div className="mt-auto pt-4 border-t border-gray-100">
+                        <div className="flex items-center justify-between text-sm mb-3">
+                          <div className="flex items-center text-gray-500">
+                            <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                            </svg>
+                            <span className="font-medium">{article.source}</span>
+                          </div>
+                          <time className="text-gray-500 text-xs">
+                            {formatDate(article.publishedAt)}
+                          </time>
+                        </div>
+                        {article.sourceUrl && (
+                          <a
+                            href={article.sourceUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center text-green-600 hover:text-green-800 font-medium text-sm transition-colors"
+                          >
+                            Read full article
+                            <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
             )}
           </div>
         )}

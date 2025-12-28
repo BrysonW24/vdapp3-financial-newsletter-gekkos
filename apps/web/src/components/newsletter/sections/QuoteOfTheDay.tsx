@@ -133,14 +133,6 @@ export default function QuoteOfTheDay() {
         </div>
       </div>
 
-      {/* Final Message */}
-      <div className="mt-8 text-center bg-gradient-financial text-white rounded-xl p-6 shadow-lg">
-        <div className="text-2xl mb-2">🦎</div>
-        <p className="text-lg font-semibold mb-1">Thanks for reading Gekkos!</p>
-        <p className="text-sm text-slate-300">
-          See you tomorrow with more finance insights and market updates.
-        </p>
-      </div>
     </div>
   )
 }

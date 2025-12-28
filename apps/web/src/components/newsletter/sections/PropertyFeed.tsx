@@ -8,11 +8,22 @@ export default function PropertyFeed() {
     { name: 'Perth Median', value: '$685K', change: '+4.5%', icon: '🌊', color: 'blue' },
   ]
 
+  const propertyIndicatorsRow2 = [
+    { name: 'Adelaide Median', value: '$725K', change: '+2.8%', icon: '🌺', color: 'rose' },
+    { name: 'Canberra Median', value: '$895K', change: '+1.5%', icon: '🏛️', color: 'sky' },
+    { name: 'Hobart Median', value: '$685K', change: '+3.9%', icon: '⛰️', color: 'teal' },
+    { name: 'Darwin Median', value: '$565K', change: '+2.3%', icon: '🌴', color: 'lime' },
+  ]
+
   const colorMap: Record<string, string> = {
     orange: 'bg-orange-500',
     amber: 'bg-amber-500',
     yellow: 'bg-yellow-500',
     blue: 'bg-blue-500',
+    rose: 'bg-rose-500',
+    sky: 'bg-sky-500',
+    teal: 'bg-teal-500',
+    lime: 'bg-lime-500',
   }
 
   return (
@@ -27,9 +38,21 @@ export default function PropertyFeed() {
         </div>
       </h2>
 
-      {/* Property Market Dashboard */}
-      <div className="mb-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+      {/* Property Market Dashboard - Row 1 */}
+      <div className="mb-4 grid grid-cols-2 md:grid-cols-4 gap-4">
         {propertyIndicators.map((indicator) => (
+          <div key={indicator.name} className={`${colorMap[indicator.color]} text-white rounded-lg p-4 shadow-md`}>
+            <div className="text-2xl mb-2">{indicator.icon}</div>
+            <div className="text-xs font-medium text-white/80 mb-1">{indicator.name}</div>
+            <div className="text-2xl font-bold mb-1">{indicator.value}</div>
+            <div className="text-xs font-semibold text-green-200">{indicator.change} (QoQ)</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Property Market Dashboard - Row 2 */}
+      <div className="mb-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+        {propertyIndicatorsRow2.map((indicator) => (
           <div key={indicator.name} className={`${colorMap[indicator.color]} text-white rounded-lg p-4 shadow-md`}>
             <div className="text-2xl mb-2">{indicator.icon}</div>
             <div className="text-xs font-medium text-white/80 mb-1">{indicator.name}</div>
