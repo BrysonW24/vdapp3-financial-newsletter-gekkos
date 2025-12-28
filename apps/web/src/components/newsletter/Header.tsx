@@ -41,38 +41,38 @@ export default function Header() {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-3">
+          <nav className="hidden lg:flex items-center gap-2 xl:gap-3 flex-shrink-0">
             <Link
               href="/"
-              className="px-3 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition-colors duration-200 backdrop-blur-sm flex items-center gap-2 font-medium text-sm shadow-md"
+              className="px-2.5 xl:px-3 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition-colors duration-200 backdrop-blur-sm flex items-center gap-1.5 font-medium text-sm shadow-md whitespace-nowrap"
             >
               <span>📊</span>
               Dashboard
             </Link>
             <Link
               href="/news"
-              className="px-3 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition-colors duration-200 backdrop-blur-sm font-medium flex items-center gap-2 text-sm shadow-md"
+              className="px-2.5 xl:px-3 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition-colors duration-200 backdrop-blur-sm font-medium flex items-center gap-1.5 text-sm shadow-md whitespace-nowrap"
             >
               <span>📰</span>
-              News Intelligence
+              News
             </Link>
             <Link
               href="/portfolio"
-              className="px-3 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition-colors duration-200 backdrop-blur-sm flex items-center gap-2 text-sm shadow-md"
+              className="px-2.5 xl:px-3 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition-colors duration-200 backdrop-blur-sm flex items-center gap-1.5 text-sm shadow-md whitespace-nowrap"
             >
               <span>💼</span>
-              Track Your Portfolio
+              Portfolio
             </Link>
             <Link
               href="/economic-charts"
-              className="px-3 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition-colors duration-200 backdrop-blur-sm flex items-center gap-2 text-sm shadow-md"
+              className="px-2.5 xl:px-3 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition-colors duration-200 backdrop-blur-sm flex items-center gap-1.5 text-sm shadow-md whitespace-nowrap"
             >
               <span>📈</span>
-              Economic Charts
+              Charts
             </Link>
             <Link
               href="/news/search"
-              className="px-3 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition-colors duration-200 backdrop-blur-sm flex items-center gap-2 text-sm shadow-md"
+              className="px-2.5 xl:px-3 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition-colors duration-200 backdrop-blur-sm flex items-center gap-1.5 text-sm shadow-md whitespace-nowrap"
             >
               <span>🔍</span>
               Search
