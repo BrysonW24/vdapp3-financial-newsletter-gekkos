@@ -161,60 +161,271 @@ export default function EconomicChartsPage() {
           </div>
         </div>
 
-        {/* Chart Placeholder */}
+        {/* Charts Grid */}
         <div className="bg-white rounded-lg shadow-md p-6 mb-8">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-xl font-bold text-gray-900">
-              {selectedCategory === 'all' ? 'All Markets' : chartCategories.find(c => c.id === selectedCategory)?.name}
-              {' '}({selectedTimeframe.charAt(0).toUpperCase() + selectedTimeframe.slice(1)} Timeframe)
+              {selectedCategory === 'all' ? 'Key Markets Overview' : chartCategories.find(c => c.id === selectedCategory)?.name}
             </h3>
             <div className="flex gap-2">
-              <button className="px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors">
-                📌 Add to Favorites
-              </button>
-              <button className="px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors">
-                🔔 Set Alert
-              </button>
+              <span className="px-3 py-1 text-xs bg-blue-100 text-blue-700 rounded-full font-medium">
+                Updates Daily
+              </span>
             </div>
           </div>
 
-          {/* Coming Soon Placeholder */}
-          <div className="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center">
-            <div className="text-6xl mb-4">📊</div>
-            <h4 className="text-2xl font-bold text-gray-900 mb-2">Charts Coming Soon</h4>
-            <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-              Professional charting infrastructure is being implemented. Charts will include:
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto text-left">
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <div className="font-bold text-blue-900 mb-2">📈 Technical Indicators</div>
-                <ul className="text-sm text-blue-700 space-y-1">
-                  <li>• Moving Averages (50, 200-day)</li>
-                  <li>• RSI & MACD</li>
-                  <li>• Volume Analysis</li>
-                  <li>• Support/Resistance</li>
-                </ul>
-              </div>
-              <div className="bg-purple-50 p-4 rounded-lg">
-                <div className="font-bold text-purple-900 mb-2">⏱️ Multi-Timeframe</div>
-                <ul className="text-sm text-purple-700 space-y-1">
-                  <li>• Daily (8-20 day forecast)</li>
-                  <li>• Weekly (8-20 week forecast)</li>
-                  <li>• Monthly (8-20 month forecast)</li>
-                  <li>• Synchronised analysis</li>
-                </ul>
-              </div>
-              <div className="bg-green-50 p-4 rounded-lg">
-                <div className="font-bold text-green-900 mb-2">🛠️ Tools & Export</div>
-                <ul className="text-sm text-green-700 space-y-1">
-                  <li>• Drawing tools (trendlines)</li>
-                  <li>• Chart annotations</li>
-                  <li>• PDF export for reports</li>
-                  <li>• Custom watchlists</li>
-                </ul>
+          {/* Australian Markets - Always shown when 'all' or 'equities' selected */}
+          {(selectedCategory === 'all' || selectedCategory === 'equities') && (
+            <div className="mb-8">
+              <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <span>🇦🇺</span>
+                <span>Australian Equities</span>
+              </h4>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* ASX 200 */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">ASX 200</h5>
+                    <p className="text-xs text-gray-600">Australian Market Index</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=ASX%3AXJO&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
+
+                {/* Commonwealth Bank (CBA) */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">CBA</h5>
+                    <p className="text-xs text-gray-600">Commonwealth Bank</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=ASX%3ACBA&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          )}
+
+          {/* Global Markets */}
+          {(selectedCategory === 'all' || selectedCategory === 'equities') && (
+            <div className="mb-8">
+              <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <span>🌍</span>
+                <span>Global Equities</span>
+              </h4>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* S&P 500 */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">S&P 500</h5>
+                    <p className="text-xs text-gray-600">US Market Index</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=SP%3ASPX&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
+
+                {/* NASDAQ */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">NASDAQ</h5>
+                    <p className="text-xs text-gray-600">US Tech Index</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=NASDAQ%3ANDX&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Commodities */}
+          {(selectedCategory === 'all' || selectedCategory === 'commodities') && (
+            <div className="mb-8">
+              <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <span>📊</span>
+                <span>Commodities</span>
+              </h4>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Gold */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">Gold</h5>
+                    <p className="text-xs text-gray-600">XAUUSD</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=OANDA%3AXAUUSD&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
+
+                {/* Crude Oil */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">Crude Oil</h5>
+                    <p className="text-xs text-gray-600">WTI</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=TVC%3AUSOIL&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Currencies */}
+          {(selectedCategory === 'all' || selectedCategory === 'currencies') && (
+            <div className="mb-8">
+              <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <span>💱</span>
+                <span>Currencies</span>
+              </h4>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* AUD/USD */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">AUD/USD</h5>
+                    <p className="text-xs text-gray-600">Australian Dollar</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=FX%3AAUDUSD&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
+
+                {/* EUR/USD */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">EUR/USD</h5>
+                    <p className="text-xs text-gray-600">Euro / US Dollar</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=FX%3AEURUSD&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Fixed Income */}
+          {(selectedCategory === 'all' || selectedCategory === 'fixed-income') && (
+            <div>
+              <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <span>📈</span>
+                <span>Fixed Income</span>
+              </h4>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* US 10Y Treasury */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">US 10Y Treasury</h5>
+                    <p className="text-xs text-gray-600">Bond Yield</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=TVC%3AUS10Y&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
+
+                {/* AU 10Y Bond */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">AU 10Y Bond</h5>
+                    <p className="text-xs text-gray-600">Australian Government Bond</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=TVC%3AAU10Y&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Volatility */}
+          {selectedCategory === 'volatility' && (
+            <div>
+              <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <span>⚡</span>
+                <span>Volatility & Market Internals</span>
+              </h4>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* VIX */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <h5 className="font-semibold text-gray-900">VIX</h5>
+                    <p className="text-xs text-gray-600">Volatility Index</p>
+                  </div>
+                  <div className="h-96">
+                    <iframe
+                      src={`https://www.tradingview.com/embed-widget/advanced-chart/?symbol=TVC%3AVIX&interval=${selectedTimeframe === 'daily' ? 'D' : selectedTimeframe === 'weekly' ? 'W' : 'M'}&theme=light&style=1&hide_side_toolbar=false&allow_symbol_change=false&save_image=false&studies=%5B%5D&show_popup_button=true&popup_width=1000&popup_height=650&locale=en`}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowTransparency={true}
+                      scrolling="no"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Druckenmiller Philosophy */}
