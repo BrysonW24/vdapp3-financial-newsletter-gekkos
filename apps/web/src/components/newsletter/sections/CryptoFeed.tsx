@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useCryptoData } from '@/lib/hooks/useCryptoData'
 
 interface CryptoPrice {
@@ -143,14 +144,14 @@ export default function CryptoFeed() {
 
       {/* View All Articles Button */}
       <div className="mt-6 text-center">
-        <a
+        <Link
           href="/news?category=crypto"
           className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-medium shadow-md hover:shadow-lg"
         >
           <span>📰</span>
           View All Crypto News & Analysis
           <span>→</span>
-        </a>
+        </Link>
       </div>
     </div>
   )

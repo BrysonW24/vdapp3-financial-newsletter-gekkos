@@ -13,6 +13,7 @@ interface AuthState {
   isAuthenticated: boolean
   setAuth: (user: User, token: string) => void
   clearAuth: () => void
+  logout: () => void
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -23,8 +24,20 @@ export const useAuthStore = create<AuthState>()(
       isAuthenticated: false,
       setAuth: (user, token) =>
         set({ user, token, isAuthenticated: true }),
-      clearAuth: () =>
-        set({ user: null, token: null, isAuthenticated: false }),
+      clearAuth: () => {
+        set({ user: null, token: null, isAuthenticated: false })
+        // Clear the auth cookie
+        if (typeof document !== 'undefined') {
+          document.cookie = 'auth-token=; path=/; max-age=0'
+        }
+      },
+      logout: () => {
+        set({ user: null, token: null, isAuthenticated: false })
+        // Clear the auth cookie
+        if (typeof document !== 'undefined') {
+          document.cookie = 'auth-token=; path=/; max-age=0'
+        }
+      },
     }),
     {
       name: 'auth-storage',

@@ -1,5 +1,7 @@
 'use client'
 
+import Link from 'next/link'
+
 export default function GlobalEconomyFeed() {
 
   const economicIndicators = [
@@ -91,14 +93,14 @@ export default function GlobalEconomyFeed() {
 
       {/* View All Articles Button */}
       <div className="text-center">
-        <a
+        <Link
           href="/news?category=economy"
           className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium shadow-md hover:shadow-lg"
         >
           <span>📰</span>
           View All Global Economic News & Analysis
           <span>→</span>
-        </a>
+        </Link>
       </div>
     </div>
   )

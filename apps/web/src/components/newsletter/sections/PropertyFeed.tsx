@@ -1,5 +1,7 @@
 'use client'
 
+import Link from 'next/link'
+
 export default function PropertyFeed() {
   const propertyIndicators = [
     { name: 'Sydney Median', value: '$1.42M', change: '+2.1%', icon: '🏙️', color: 'orange' },
@@ -102,14 +104,14 @@ export default function PropertyFeed() {
 
       {/* View All Articles Button */}
       <div className="text-center">
-        <a
+        <Link
           href="/news?category=property"
           className="inline-flex items-center gap-2 px-6 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors font-medium shadow-md hover:shadow-lg"
         >
           <span>📰</span>
           View All Property Market News & Analysis
           <span>→</span>
-        </a>
+        </Link>
       </div>
     </div>
   )

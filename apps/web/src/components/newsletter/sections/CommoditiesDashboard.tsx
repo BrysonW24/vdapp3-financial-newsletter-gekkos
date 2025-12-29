@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 export default function CommoditiesDashboard() {
 
   return (
@@ -84,14 +86,14 @@ export default function CommoditiesDashboard() {
 
       {/* View All Button */}
       <div className="mt-8 text-center">
-        <a
+        <Link
           href="/news?category=economy"
           className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-lg hover:from-amber-700 hover:to-orange-700 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl"
         >
           <span>📰</span>
           View All Commodities News & Market Analysis
           <span>→</span>
-        </a>
+        </Link>
       </div>
     </div>
   );

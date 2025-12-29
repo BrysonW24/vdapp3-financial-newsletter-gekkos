@@ -1,5 +1,7 @@
 'use client'
 
+import Link from 'next/link'
+
 export default function StocksFeed() {
   const marketIndicators = [
     { name: 'ASX 200', value: '7,845', change: '+1.2%', icon: '🇦🇺', color: 'blue' },
@@ -61,14 +63,14 @@ export default function StocksFeed() {
 
       {/* View All Articles Button */}
       <div className="text-center">
-        <a
+        <Link
           href="/news?category=stocks"
           className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium shadow-md hover:shadow-lg"
         >
           <span>📰</span>
           View All Stock Market News & Analysis
           <span>→</span>
-        </a>
+        </Link>
       </div>
     </div>
   )

@@ -23,6 +23,7 @@ export default function LoginPage() {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify({
           username,
           password,
@@ -37,7 +38,12 @@ export default function LoginPage() {
 
       const { accessToken, user } = data
 
+      // Set auth state in Zustand
       setAuth(user, accessToken)
+
+      // Also set a client-side cookie for middleware to read
+      document.cookie = `auth-token=authenticated; path=/; max-age=${60 * 60 * 24 * 7}; samesite=lax`
+
       router.push('/')
     } catch (err: any) {
       setError(err.message || 'Invalid credentials')

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 interface TechNewsItem {
   title: string;
@@ -91,9 +92,9 @@ export default function TechnologyFeed() {
             <span className="text-xs font-normal text-blue-700">🚀 Tech industry news, trends & innovations</span>
           </div>
         </div>
-        <a href="/news?category=tech" className="text-xs font-normal text-blue-600 bg-blue-100 px-3 py-1 rounded-full hover:bg-blue-200 transition-colors">
+        <Link href="/news?category=tech" className="text-xs font-normal text-blue-600 bg-blue-100 px-3 py-1 rounded-full hover:bg-blue-200 transition-colors">
           View All Articles →
-        </a>
+        </Link>
       </h2>
 
       {/* Tech Market Dashboard */}
@@ -179,14 +180,14 @@ export default function TechnologyFeed() {
 
       {/* View All Articles Button */}
       <div className="mt-8 text-center">
-        <a
+        <Link
           href="/news?category=tech"
           className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl"
         >
           <span>📰</span>
           View All Technology News & Analysis
           <span>→</span>
-        </a>
+        </Link>
       </div>
     </div>
   );
