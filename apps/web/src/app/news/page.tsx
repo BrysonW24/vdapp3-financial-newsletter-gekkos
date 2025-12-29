@@ -17,43 +17,58 @@ interface NewsArticle {
 function NewsIntelligenceContent() {
   const searchParams = useSearchParams()
   const categoryParam = searchParams.get('category')
+  const categoriesParam = searchParams.get('categories') // Support multiple categories
 
   const [articles, setArticles] = useState<NewsArticle[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [selectedCategory, setSelectedCategory] = useState<string>(categoryParam || 'all')
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(() => {
+    // Initialize from URL params
+    if (categoriesParam) {
+      return categoriesParam.split(',')
+    }
+    if (categoryParam && categoryParam !== 'all') {
+      return [categoryParam]
+    }
+    return []
+  })
   const [selectedSource, setSelectedSource] = useState<string>('all')
   const [searchQuery, setSearchQuery] = useState<string>('')
 
-  // Update category when URL param changes
+  // Update categories when URL params change
   useEffect(() => {
-    if (categoryParam) {
-      setSelectedCategory(categoryParam)
+    if (categoriesParam) {
+      setSelectedCategories(categoriesParam.split(','))
+    } else if (categoryParam && categoryParam !== 'all') {
+      setSelectedCategories([categoryParam])
+    } else if (categoryParam === 'all') {
+      setSelectedCategories([])
     }
-  }, [categoryParam])
+  }, [categoryParam, categoriesParam])
 
   useEffect(() => {
     fetchArticles()
-  }, [selectedCategory])
+  }, [selectedCategories])
 
   const fetchArticles = async () => {
     try {
       setLoading(true)
 
-      // Fetch from API with category parameter
-      const response = await fetch(`/api/news?category=${selectedCategory}`)
+      // Fetch from API - fetch all categories and filter client-side for multiple category support
+      const category = selectedCategories.length > 0 ? selectedCategories.join(',') : 'all'
+      const response = await fetch(`/api/news?category=${category}`)
       const data = await response.json()
 
       if (response.ok && Array.isArray(data)) {
         // Transform articles to match our interface
         const transformedArticles = data.map((article: any, index: number) => ({
-          id: `${article.category || selectedCategory}-${index}`,
+          id: `${article.category || 'unknown'}-${index}`,
           title: article.title || 'Untitled',
           content: article.description || article.summary || '',
           source: article.source || 'Unknown',
           sourceUrl: article.url || '#',
           publishedAt: article.publishedAt || new Date().toISOString(),
-          category: article.category || selectedCategory,
+          category: article.category || 'general',
         }))
 
         // Sort by published date (newest first)
@@ -75,7 +90,8 @@ function NewsIntelligenceContent() {
   }
 
   const filteredArticles = articles.filter(article => {
-    const categoryMatch = selectedCategory === 'all' || article.category === selectedCategory
+    // Category match - show all if no categories selected, otherwise match any selected category
+    const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(article.category)
     const sourceMatch = selectedSource === 'all' || article.source === selectedSource
 
     // Search filter - search across title, content, and source
@@ -87,6 +103,18 @@ function NewsIntelligenceContent() {
 
     return categoryMatch && sourceMatch && searchMatch
   })
+
+  const toggleCategory = (category: string) => {
+    if (category === 'all') {
+      setSelectedCategories([])
+    } else {
+      setSelectedCategories(prev =>
+        prev.includes(category)
+          ? prev.filter(c => c !== category)
+          : [...prev, category]
+      )
+    }
+  }
 
   const categories = ['all', ...Array.from(new Set(articles.map(a => a.category)))]
   const sources = ['all', ...Array.from(new Set(articles.map(a => a.source)))]
@@ -150,10 +178,12 @@ function NewsIntelligenceContent() {
               <span className="hidden sm:inline text-green-300">|</span>
               <div className="flex flex-col">
                 <h1 className="text-lg sm:text-xl font-semibold">
-                  {getCategoryIcon(selectedCategory)} News Intelligence
+                  📰 News Intelligence
                 </h1>
                 <p className="text-xs text-green-100">
-                  {getCategoryName(selectedCategory)}
+                  {selectedCategories.length === 0
+                    ? 'All Categories'
+                    : selectedCategories.map(cat => getCategoryName(cat)).join(', ')}
                 </p>
               </div>
             </div>
@@ -193,43 +223,56 @@ function NewsIntelligenceContent() {
               />
             </div>
 
-            {/* Filters */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Category Filter */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Category
-                </label>
-                <select
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent min-h-[48px] text-base"
+            {/* Category Filter - Multi-select chips */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-3">
+                Categories {selectedCategories.length > 0 && (
+                  <span className="text-xs text-gray-500">({selectedCategories.length} selected)</span>
+                )}
+              </label>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => toggleCategory('all')}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                    selectedCategories.length === 0
+                      ? 'bg-green-600 text-white shadow-md'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
                 >
-                  {categories.map((cat) => (
-                    <option key={cat} value={cat}>
-                      {cat.charAt(0).toUpperCase() + cat.slice(1)}
-                    </option>
-                  ))}
-                </select>
+                  📰 All Categories
+                </button>
+                {categories.filter(cat => cat !== 'all').map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => toggleCategory(cat)}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                      selectedCategories.includes(cat)
+                        ? 'bg-green-600 text-white shadow-md'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    {getCategoryIcon(cat)} {getCategoryName(cat)}
+                  </button>
+                ))}
               </div>
+            </div>
 
-              {/* Source Filter */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Source
-                </label>
-                <select
-                  value={selectedSource}
-                  onChange={(e) => setSelectedSource(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent min-h-[48px] text-base"
-                >
-                  {sources.map((source) => (
-                    <option key={source} value={source}>
-                      {source.charAt(0).toUpperCase() + source.slice(1)}
-                    </option>
-                  ))}
-                </select>
-              </div>
+            {/* Source Filter */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Source
+              </label>
+              <select
+                value={selectedSource}
+                onChange={(e) => setSelectedSource(e.target.value)}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent min-h-[48px] text-base"
+              >
+                {sources.map((source) => (
+                  <option key={source} value={source}>
+                    {source.charAt(0).toUpperCase() + source.slice(1)}
+                  </option>
+                ))}
+              </select>
             </div>
 
             {/* Stats */}
