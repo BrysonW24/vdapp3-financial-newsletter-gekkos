@@ -29,6 +29,26 @@ export default function ContentRenderer({ content, color = 'green', index }: Con
   const headingColorClass = headingColors[color as keyof typeof headingColors] || headingColors.green
   const calloutColorClass = calloutColors[color as keyof typeof calloutColors] || calloutColors.green
 
+  // Helper function to bold text before colons (labels/concepts)
+  const formatTextWithBoldLabels = (text: string) => {
+    // Split by lines to process each line
+    const lines = text.split('\n')
+    return lines.map((line, lineIndex) => {
+      // Match patterns like "Label:" or "Label vs Label:" at the start of a line
+      const match = line.match(/^([^:\n]+:)(.*)$/)
+      if (match) {
+        return (
+          <span key={lineIndex}>
+            <span className="font-semibold">{match[1]}</span>
+            {match[2]}
+            {lineIndex < lines.length - 1 && '\n'}
+          </span>
+        )
+      }
+      return <span key={lineIndex}>{line}{lineIndex < lines.length - 1 && '\n'}</span>
+    })
+  }
+
   const renderContent = () => {
     switch (content.type) {
       case 'text':
@@ -41,7 +61,7 @@ export default function ContentRenderer({ content, color = 'green', index }: Con
       case 'list':
         return (
           <div className="text-slate-700 leading-relaxed whitespace-pre-line">
-            {content.body}
+            {formatTextWithBoldLabels(content.body)}
           </div>
         )
 
@@ -49,7 +69,7 @@ export default function ContentRenderer({ content, color = 'green', index }: Con
         return (
           <div className={`${calloutColorClass.split(' ')[0]} border-l-4 ${calloutColorClass.split(' ')[1]} rounded-r-lg p-4`}>
             <div className="text-slate-700 leading-relaxed whitespace-pre-line">
-              {content.body}
+              {formatTextWithBoldLabels(content.body)}
             </div>
           </div>
         )
