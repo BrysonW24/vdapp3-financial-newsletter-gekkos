@@ -21,6 +21,7 @@ import CommoditiesDashboard from '@/components/newsletter/sections/CommoditiesDa
 import VentureCapitalDashboard from '@/components/newsletter/sections/VentureCapitalDashboard'
 import DruckenmillerCharts from '@/components/newsletter/sections/DruckenmillerCharts'
 import FeedbackForm from '@/components/feedback/FeedbackForm'
+import Link from 'next/link'
 
 export default function Home() {
   // Get current day to determine if we show Entertainment Feed
@@ -50,6 +51,37 @@ export default function Home() {
       <Header />
 
       <div className="container mx-auto px-4 py-8 max-w-7xl">
+        {/* Education Hub Prompt for Beginners */}
+        <div className="mb-8 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
+          <div className="flex items-start gap-4">
+            <div className="text-4xl flex-shrink-0">🎓</div>
+            <div className="flex-grow">
+              <h2 className="text-xl font-bold text-slate-900 mb-2">
+                New to Finance? Start with Our Education Hub
+              </h2>
+              <p className="text-slate-700 mb-4">
+                Learn the fundamentals of investing, economic indicators, and market analysis.
+                Our comprehensive guides and searchable glossary will help you understand every term and concept.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  href="/education"
+                  className="px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-colors duration-200 shadow-md flex items-center gap-2"
+                >
+                  <span>Explore Education Hub</span>
+                  <span>→</span>
+                </Link>
+                <Link
+                  href="/education/glossary"
+                  className="px-5 py-2.5 bg-white hover:bg-slate-50 text-slate-700 border-2 border-slate-300 rounded-lg font-semibold transition-colors duration-200"
+                >
+                  Browse Glossary
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <TableOfContents sections={sections} />
 
         <div className="mt-12 space-y-12">
