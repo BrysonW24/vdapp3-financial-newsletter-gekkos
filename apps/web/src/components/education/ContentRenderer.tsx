@@ -77,7 +77,7 @@ export default function ContentRenderer({ content, color = 'green', index }: Con
         <>
           {/* Visual Divider */}
           {index !== undefined && index > 0 && (
-            <div className="mb-6 border-t-2 border-dashed border-slate-200"></div>
+            <div className="mt-8 mb-6 border-t-2 border-dashed border-slate-200"></div>
           )}
 
           {/* Color-coded Heading */}
