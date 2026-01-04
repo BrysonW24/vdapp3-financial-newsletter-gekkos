@@ -9,6 +9,11 @@ export function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
+  // Allow public access to education hub
+  if (pathname.startsWith('/education')) {
+    return NextResponse.next()
+  }
+
   // Check for auth token in cookies (simple client-side cookie)
   const authToken = request.cookies.get('auth-token')?.value
 

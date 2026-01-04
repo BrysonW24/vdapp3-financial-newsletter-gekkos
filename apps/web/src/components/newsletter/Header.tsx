@@ -71,6 +71,13 @@ export default function Header() {
               Charts
             </Link>
             <Link
+              href="/education"
+              className="px-2.5 xl:px-3 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition-colors duration-200 backdrop-blur-sm flex items-center gap-1.5 text-sm shadow-md whitespace-nowrap"
+            >
+              <span>🎓</span>
+              Education
+            </Link>
+            <Link
               href="/news/search"
               className="px-2.5 xl:px-3 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition-colors duration-200 backdrop-blur-sm flex items-center gap-1.5 text-sm shadow-md whitespace-nowrap"
             >
@@ -127,6 +134,14 @@ export default function Header() {
             >
               <span>📈</span>
               Economic Charts
+            </Link>
+            <Link
+              href="/education"
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-4 py-3 bg-green-600 hover:bg-green-700 rounded-lg transition-colors duration-200 flex items-center gap-3 font-medium text-sm shadow-md"
+            >
+              <span>🎓</span>
+              Education Hub
             </Link>
             <Link
               href="/news/search"
