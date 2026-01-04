@@ -5,6 +5,7 @@ import Footer from '@/components/newsletter/Footer'
 import NewsletterLayout from '@/components/newsletter/NewsletterLayout'
 import GlossarySearch from '@/components/education/GlossarySearch'
 import GlossaryTermCard from '@/components/education/GlossaryTermCard'
+import BackToTop from '@/components/education/BackToTop'
 import { glossaryTerms } from '@/lib/education/glossary-data'
 import { useState, useCallback, useEffect } from 'react'
 import { GlossaryTerm } from '@/lib/education/types'
@@ -13,10 +14,33 @@ export default function GlossaryPage() {
   const [filteredTerms, setFilteredTerms] = useState<GlossaryTerm[]>(glossaryTerms)
   const [isClient, setIsClient] = useState(false)
   const [isSearchExpanded, setIsSearchExpanded] = useState(true)
+  const [isSearchVisible, setIsSearchVisible] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
 
   useEffect(() => {
     setIsClient(true)
   }, [])
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+
+      // Hide search when scrolling down, show when scrolling up
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setIsSearchVisible(false)
+      } else {
+        setIsSearchVisible(true)
+      }
+
+      setLastScrollY(currentScrollY)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [lastScrollY])
 
   const handleFilteredTerms = useCallback((terms: GlossaryTerm[]) => {
     setFilteredTerms(terms)
@@ -52,7 +76,7 @@ export default function GlossaryPage() {
         </div>
 
         {/* Search and Filters */}
-        <div className="mb-12 sticky top-20 z-30 bg-gray-50 -mx-4 px-4 shadow-md rounded-lg">
+        <div className={`mb-12 sticky top-20 z-30 bg-gray-50 -mx-4 px-4 shadow-md rounded-lg transition-transform duration-300 ${isSearchVisible ? 'translate-y-0' : '-translate-y-full'}`}>
           {/* Mobile Toggle Button */}
           <button
             onClick={() => setIsSearchExpanded(!isSearchExpanded)}
@@ -144,6 +168,7 @@ export default function GlossaryPage() {
       </div>
 
       <Footer />
+      <BackToTop />
     </NewsletterLayout>
   )
 }

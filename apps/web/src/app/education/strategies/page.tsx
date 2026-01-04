@@ -4,6 +4,7 @@ import NewsletterLayout from '@/components/newsletter/NewsletterLayout'
 import ContentRenderer from '@/components/education/ContentRenderer'
 import TableOfContents from '@/components/education/TableOfContents'
 import Link from 'next/link'
+import BackToTop from '@/components/education/BackToTop'
 import { strategiesContent } from '@/lib/education/strategies-content'
 
 export const metadata = {
@@ -54,6 +55,7 @@ export default function StrategiesPage() {
       </div>
 
       <Footer />
+    <BackToTop />
     </NewsletterLayout>
   )
 }

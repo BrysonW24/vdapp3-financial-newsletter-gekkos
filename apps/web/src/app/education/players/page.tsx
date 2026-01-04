@@ -3,6 +3,7 @@ import Footer from '@/components/newsletter/Footer'
 import NewsletterLayout from '@/components/newsletter/NewsletterLayout'
 import ContentRenderer from '@/components/education/ContentRenderer'
 import TableOfContents from '@/components/education/TableOfContents'
+import BackToTop from '@/components/education/BackToTop'
 import Link from 'next/link'
 import { playersContent } from '@/lib/education/players-content'
 
@@ -54,6 +55,7 @@ export default function PlayersPage() {
       </div>
 
       <Footer />
+      <BackToTop />
     </NewsletterLayout>
   )
 }

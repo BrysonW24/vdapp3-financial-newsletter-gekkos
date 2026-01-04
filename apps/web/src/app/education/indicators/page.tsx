@@ -4,6 +4,7 @@ import NewsletterLayout from '@/components/newsletter/NewsletterLayout'
 import ContentRenderer from '@/components/education/ContentRenderer'
 import TableOfContents from '@/components/education/TableOfContents'
 import Link from 'next/link'
+import BackToTop from '@/components/education/BackToTop'
 import { indicatorsContent } from '@/lib/education/indicators-content'
 
 export const metadata = {
@@ -54,6 +55,7 @@ export default function IndicatorsPage() {
       </div>
 
       <Footer />
+    <BackToTop />
     </NewsletterLayout>
   )
 }
