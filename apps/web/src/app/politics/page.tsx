@@ -4,6 +4,7 @@ import NewsletterLayout from '@/components/newsletter/NewsletterLayout'
 import Header from '@/components/newsletter/Header'
 import Footer from '@/components/newsletter/Footer'
 import GlobalPolitics from '@/components/newsletter/sections/GlobalPolitics'
+import BackToTop from '@/components/education/BackToTop'
 
 export default function PoliticsPage() {
   return (
@@ -25,6 +26,7 @@ export default function PoliticsPage() {
       </div>
 
       <Footer />
+      <BackToTop />
     </NewsletterLayout>
   )
 }

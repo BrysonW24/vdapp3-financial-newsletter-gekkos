@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Header from '@/components/newsletter/Header'
 import Footer from '@/components/newsletter/Footer'
 import NewsletterLayout from '@/components/newsletter/NewsletterLayout'
+import BackToTop from '@/components/education/BackToTop'
 
 export default function ArchivePage() {
   // Mock data - will be replaced with real database queries
@@ -76,6 +77,7 @@ export default function ArchivePage() {
       </div>
 
       <Footer />
+      <BackToTop />
     </NewsletterLayout>
   )
 }

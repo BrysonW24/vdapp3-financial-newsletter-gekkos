@@ -1,6 +1,7 @@
 import Header from '@/components/newsletter/Header'
 import Footer from '@/components/newsletter/Footer'
 import NewsletterLayout from '@/components/newsletter/NewsletterLayout'
+import BackToTop from '@/components/education/BackToTop'
 
 export default function AboutPage() {
   return (
@@ -134,6 +135,7 @@ export default function AboutPage() {
       </div>
 
       <Footer />
+      <BackToTop />
     </NewsletterLayout>
   )
 }

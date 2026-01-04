@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import BackToTop from '@/components/education/BackToTop'
 
 // Chart categories based on Druckenmiller's 272 chart methodology
 const chartCategories = [
@@ -823,6 +824,7 @@ export default function EconomicChartsPage() {
           </div>
         </div>
       </div>
+      <BackToTop />
     </div>
   )
 }
