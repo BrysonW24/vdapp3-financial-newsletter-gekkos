@@ -2,6 +2,7 @@ import Header from '@/components/newsletter/Header'
 import Footer from '@/components/newsletter/Footer'
 import NewsletterLayout from '@/components/newsletter/NewsletterLayout'
 import ContentRenderer from '@/components/education/ContentRenderer'
+import TableOfContents from '@/components/education/TableOfContents'
 import Link from 'next/link'
 import { strategiesContent } from '@/lib/education/strategies-content'
 
@@ -26,11 +27,11 @@ export default function StrategiesPage() {
           </p>
         </div>
 
-        <div className="space-y-8">
+        <TableOfContents content={strategiesContent.content} color="indigo" />
+
+        <div className="section-card">
           {strategiesContent.content.map((section, index) => (
-            <div key={index} className="section-card">
-              <ContentRenderer content={section} />
-            </div>
+            <ContentRenderer key={index} content={section} color="indigo" index={index} />
           ))}
         </div>
 

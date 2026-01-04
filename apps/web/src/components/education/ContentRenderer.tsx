@@ -3,9 +3,32 @@ import Link from 'next/link'
 
 interface ContentRendererProps {
   content: EducationContent
+  color?: string
+  index?: number
 }
 
-export default function ContentRenderer({ content }: ContentRendererProps) {
+export default function ContentRenderer({ content, color = 'green', index }: ContentRendererProps) {
+  const headingColors = {
+    blue: 'text-blue-700 border-blue-300',
+    purple: 'text-purple-700 border-purple-300',
+    amber: 'text-amber-700 border-amber-300',
+    green: 'text-green-700 border-green-300',
+    indigo: 'text-indigo-700 border-indigo-300',
+    slate: 'text-slate-700 border-slate-300',
+  }
+
+  const calloutColors = {
+    blue: 'bg-blue-50 border-blue-500',
+    purple: 'bg-purple-50 border-purple-500',
+    amber: 'bg-amber-50 border-amber-500',
+    green: 'bg-green-50 border-green-500',
+    indigo: 'bg-indigo-50 border-indigo-500',
+    slate: 'bg-slate-50 border-slate-500',
+  }
+
+  const headingColorClass = headingColors[color as keyof typeof headingColors] || headingColors.green
+  const calloutColorClass = calloutColors[color as keyof typeof calloutColors] || calloutColors.green
+
   const renderContent = () => {
     switch (content.type) {
       case 'text':
@@ -24,7 +47,7 @@ export default function ContentRenderer({ content }: ContentRendererProps) {
 
       case 'callout':
         return (
-          <div className="bg-blue-50 border-l-4 border-blue-500 rounded-r-lg p-4">
+          <div className={`${calloutColorClass.split(' ')[0]} border-l-4 ${calloutColorClass.split(' ')[1]} rounded-r-lg p-4`}>
             <div className="text-slate-700 leading-relaxed whitespace-pre-line">
               {content.body}
             </div>
@@ -49,11 +72,19 @@ export default function ContentRenderer({ content }: ContentRendererProps) {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4" id={index !== undefined ? `section-${index}` : undefined}>
       {content.heading && (
-        <h3 className="text-xl font-bold text-slate-900">
-          {content.heading}
-        </h3>
+        <>
+          {/* Visual Divider */}
+          {index !== undefined && index > 0 && (
+            <div className="mb-6 border-t-2 border-dashed border-slate-200"></div>
+          )}
+
+          {/* Color-coded Heading */}
+          <h3 className={`text-2xl font-bold ${headingColorClass.split(' ')[0]} pb-2 border-b-2 ${headingColorClass.split(' ')[1]} mb-4`}>
+            {content.heading}
+          </h3>
+        </>
       )}
 
       {renderContent()}

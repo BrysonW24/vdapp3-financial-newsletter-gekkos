@@ -2,6 +2,7 @@ import Header from '@/components/newsletter/Header'
 import Footer from '@/components/newsletter/Footer'
 import NewsletterLayout from '@/components/newsletter/NewsletterLayout'
 import ContentRenderer from '@/components/education/ContentRenderer'
+import TableOfContents from '@/components/education/TableOfContents'
 import Link from 'next/link'
 import { bigPictureContent } from '@/lib/education/big-picture-content'
 
@@ -27,12 +28,11 @@ export default function BigPicturePage() {
           </p>
         </div>
 
-        {/* Content Sections */}
-        <div className="space-y-8">
+        <TableOfContents content={bigPictureContent.content} color="blue" />
+
+        <div className="section-card">
           {bigPictureContent.content.map((section, index) => (
-            <div key={index} className="section-card">
-              <ContentRenderer content={section} />
-            </div>
+            <ContentRenderer key={index} content={section} color="blue" index={index} />
           ))}
         </div>
 

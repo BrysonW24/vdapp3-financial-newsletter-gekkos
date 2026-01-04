@@ -12,6 +12,7 @@ import { GlossaryTerm } from '@/lib/education/types'
 export default function GlossaryPage() {
   const [filteredTerms, setFilteredTerms] = useState<GlossaryTerm[]>(glossaryTerms)
   const [isClient, setIsClient] = useState(false)
+  const [isSearchExpanded, setIsSearchExpanded] = useState(true)
 
   useEffect(() => {
     setIsClient(true)
@@ -51,18 +52,37 @@ export default function GlossaryPage() {
         </div>
 
         {/* Search and Filters */}
-        <div className="mb-12 sticky top-20 z-30 bg-gray-50 -mx-4 px-4 py-6 shadow-md rounded-lg">
-          <GlossarySearch
-            terms={glossaryTerms}
-            onFilteredTerms={handleFilteredTerms}
-          />
+        <div className="mb-12 sticky top-20 z-30 bg-gray-50 -mx-4 px-4 shadow-md rounded-lg">
+          {/* Mobile Toggle Button */}
+          <button
+            onClick={() => setIsSearchExpanded(!isSearchExpanded)}
+            className="md:hidden w-full flex items-center justify-between py-4 text-left"
+          >
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">🔍</span>
+              <span className="font-semibold text-slate-900">
+                Search & Filter ({filteredTerms.length} terms)
+              </span>
+            </div>
+            <span className="text-2xl text-slate-600">
+              {isSearchExpanded ? '▲' : '▼'}
+            </span>
+          </button>
+
+          {/* Search Component - Always visible on desktop, collapsible on mobile */}
+          <div className={`${isSearchExpanded ? 'block' : 'hidden'} md:block py-2 md:py-6`}>
+            <GlossarySearch
+              terms={glossaryTerms}
+              onFilteredTerms={handleFilteredTerms}
+            />
+          </div>
         </div>
 
         {/* Terms Grid */}
         {isClient && (
           <>
             {filteredTerms.length > 0 ? (
-              <div className="grid gap-6 md:grid-cols-2">
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {filteredTerms.map((term) => (
                   <GlossaryTermCard
                     key={term.id}

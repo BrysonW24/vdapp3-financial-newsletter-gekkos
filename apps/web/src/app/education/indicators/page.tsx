@@ -2,6 +2,7 @@ import Header from '@/components/newsletter/Header'
 import Footer from '@/components/newsletter/Footer'
 import NewsletterLayout from '@/components/newsletter/NewsletterLayout'
 import ContentRenderer from '@/components/education/ContentRenderer'
+import TableOfContents from '@/components/education/TableOfContents'
 import Link from 'next/link'
 import { indicatorsContent } from '@/lib/education/indicators-content'
 
@@ -26,11 +27,11 @@ export default function IndicatorsPage() {
           </p>
         </div>
 
-        <div className="space-y-8">
+        <TableOfContents content={indicatorsContent.content} color="amber" />
+
+        <div className="section-card">
           {indicatorsContent.content.map((section, index) => (
-            <div key={index} className="section-card">
-              <ContentRenderer content={section} />
-            </div>
+            <ContentRenderer key={index} content={section} color="amber" index={index} />
           ))}
         </div>
 
